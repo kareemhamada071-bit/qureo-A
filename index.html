@@ -2,129 +2,86 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QUREO AI</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #0b1020;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 40px auto;
-      background: #151d32;
-      padding: 25px;
-      border-radius: 18px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #55a5ff;
-    }
-
-    p {
-      text-align: center;
-      color: #b9c5d8;
-    }
-
-    label {
-      display: block;
-      margin: 20px 0 8px;
-    }
-
-    select, textarea, button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-    }
-
-    select, textarea {
-      background: #26334e;
-      color: white;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    button {
-      margin-top: 18px;
-      background: #2784ee;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #result {
-      margin-top: 20px;
-      padding: 15px;
-      background: #26334e;
-      border-radius: 10px;
-      line-height: 1.8;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QUREO AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:white;
+ font-family:Arial,sans-serif;padding:20px
+}
+main{
+ max-width:480px;margin:35px auto;
+ background:#151d32;padding:24px;border-radius:20px
+}
+h1{text-align:center;color:#55a5ff}
+p{text-align:center;color:#bac6d9}
+button,select,textarea{
+ width:100%;padding:15px;margin-top:14px;
+ border:0;border-radius:10px;font-size:16px
+}
+button{background:#2784ee;color:white;font-weight:bold}
+select,textarea{background:#26334e;color:white}
+textarea{min-height:130px}
+.result{
+ background:#26334e;padding:15px;
+ margin-top:18px;border-radius:10px;line-height:1.8
+}
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>QUREO AI</h1>
-    <p>مساعدك الذكي في تدريبات Qureo</p>
+<main>
+<h1>QUREO AI</h1>
+<p>مساعدك الذكي للتدريبات التعليمية</p>
 
-    <label>اختر المادة</label>
+<button onclick="connect()">
+الاتصال بمنصة Qureo
+</button>
 
-    <select id="subject">
-      <option>JavaScript</option>
-      <option>Python</option>
-      <option>الثقافة المالية</option>
-    </select>
+<label>اختر المادة</label>
+<select id="subject">
+<option>JavaScript</option>
+<option>Python</option>
+<option>الثقافة المالية</option>
+</select>
 
-    <label>اكتب السؤال</label>
+<label>السؤال</label>
+<textarea id="question"
+placeholder="ضع السؤال هنا..."></textarea>
 
-    <textarea id="question"
-      placeholder="اكتب السؤال هنا..."></textarea>
+<button onclick="help()">
+تحليل السؤال
+</button>
 
-    <button onclick="solve()">
-      ساعدني في حل السؤال
-    </button>
+<div class="result" id="result">
+جاهز لاستقبال السؤال.
+</div>
+</main>
 
-    <div id="result">
-      ستظهر المساعدة هنا.
-    </div>
-  </div>
+<script>
+function connect(){
+ window.open(
+ "https://me-portal.qureo.education/login",
+ "_blank"
+ );
+}
 
-  <script>
-    function solve() {
-      const question =
-        document.getElementById("question").value;
+function help(){
+ const q=document.getElementById("question").value;
+ const s=document.getElementById("subject").value;
+ const r=document.getElementById("result");
 
-      const subject =
-        document.getElementById("subject").value;
+ if(!q.trim()){
+  r.textContent="من فضلك اكتب السؤال أولاً.";
+  return;
+ }
 
-      const result =
-        document.getElementById("result");
-
-      if (!question.trim()) {
-        result.textContent = "اكتب السؤال أولاً.";
-        return;
-      }
-
-      result.textContent =
-        "تم استلام السؤال في مادة " + subject +
-        ". الخطوة القادمة هي توصيل محرك الذكاء الاصطناعي لحل الأسئلة وشرحها.";
-    }
-  </script>
+ r.textContent=
+ "تم استلام سؤالك في مادة "+s+
+ ". محرك التحليل والذكاء الاصطناعي سيتم ربطه في المرحلة القادمة.";
+}
+</script>
 </body>
-    </html>
-    
+</html>
+
