@@ -71,9 +71,31 @@ function connect(){
 }
 
 function help(){
- const q=document.getElementById("question").value;
- const s=document.getElementById("subject").value;
- const r=document.getElementById("result");
+  const q = document.getElementById("question").value.trim();
+  const s = document.getElementById("subject").value;
+  const r = document.getElementById("result");
+
+  if(!q){
+    r.textContent = "من فضلك اكتب السؤال أولا";
+    return;
+  }
+
+  const prompt = `ساعدني في فهم وحل هذا السؤال واشرح الإجابة خطوة بخطوة.
+المادة: ${s}
+السؤال: ${q}`;
+
+  const chat = window.open("https://chatgpt.com/", "_blank");
+
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(prompt).then(()=>{
+      r.textContent = "تم نسخ السؤال! الصقه في ChatGPT للحصول على الحل والشرح.";
+    }).catch(()=>{
+      r.textContent = prompt;
+    });
+  } else {
+    r.textContent = prompt;
+  }
+ }
 
  if(!q.trim()){
   r.textContent="من فضلك اكتب السؤال أولاً.";
