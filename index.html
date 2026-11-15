@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUREO AI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #0b1020;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #151d32;
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #55a5ff;
+    }
+
+    p {
+      text-align: center;
+      color: #b9c5d8;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 8px;
+    }
+
+    select, textarea, button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    select, textarea {
+      background: #26334e;
+      color: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 18px;
+      background: #2784ee;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #26334e;
+      border-radius: 10px;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>QUREO AI</h1>
+    <p>مساعدك الذكي في تدريبات Qureo</p>
+
+    <label>اختر المادة</label>
+
+    <select id="subject">
+      <option>JavaScript</option>
+      <option>Python</option>
+      <option>الثقافة المالية</option>
+    </select>
+
+    <label>اكتب السؤال</label>
+
+    <textarea id="question"
+      placeholder="اكتب السؤال هنا..."></textarea>
+
+    <button onclick="solve()">
+      ساعدني في حل السؤال
+    </button>
+
+    <div id="result">
+      ستظهر المساعدة هنا.
+    </div>
+  </div>
+
+  <script>
+    function solve() {
+      const question =
+        document.getElementById("question").value;
+
+      const subject =
+        document.getElementById("subject").value;
+
+      const result =
+        document.getElementById("result");
+
+      if (!question.trim()) {
+        result.textContent = "اكتب السؤال أولاً.";
+        return;
+      }
+
+      result.textContent =
+        "تم استلام السؤال في مادة " + subject +
+        ". الخطوة القادمة هي توصيل محرك الذكاء الاصطناعي لحل الأسئلة وشرحها.";
+    }
+  </script>
+</body>
+    </html>
+    
