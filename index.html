@@ -4,110 +4,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QUREO AI</title>
+<title>QUREO AI 3D</title>
 
 <style>
 *{box-sizing:border-box}
+
+:root{
+  --blue:#168cff;
+  --cyan:#00e5ff;
+  --bg:#050914;
+}
+
 body{
   margin:0;
-  background:#080d19;
-  color:white;
-  font-family:Arial,sans-serif;
+  min-height:100vh;
   padding:18px;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:
+    radial-gradient(ellipse at 50% 0%,#12346a 0%,transparent 48%),
+    radial-gradient(ellipse at 100% 80%,#101c45 0%,transparent 40%),
+    var(--bg);
+  overflow-x:hidden;
 }
+
 main{
-  max-width:650px;
+  max-width:680px;
   margin:25px auto;
+  perspective:1000px;
 }
+
 header{
   text-align:center;
-  padding:25px 12px;
-  background:linear-gradient(135deg,#172747,#10182b);
-  border:1px solid #263b60;
-  border-radius:22px;
-  margin-bottom:20px;
+  padding:35px 15px;
+  margin-bottom:25px;
+  border:1px solid #287bdc;
+  border-radius:25px;
+  background:linear-gradient(145deg,#172b50,#091326);
+  box-shadow:
+    0 15px 35px #0009,
+    0 0 25px #168cff35,
+    inset 0 1px 1px #ffffff30;
+  transform:rotateX(3deg);
 }
-header h1{
-  color:#55a5ff;
-  font-size:34px;
-  margin:5px;
+
+.logo{
+  font-size:39px;
+  font-weight:900;
+  letter-spacing:3px;
+  color:#63caff;
+  text-shadow:
+    0 0 8px #168cff,
+    0 0 20px #168cff,
+    0 5px 0 #07509b;
 }
-header p{color:#b9c9df}
+
+header p{
+  color:#b7d8ff;
+  line-height:1.7;
+}
+
 .card{
-  background:#111a2c;
-  border:1px solid #283750;
-  padding:20px;
-  border-radius:18px;
-  margin-bottom:17px;
+  position:relative;
+  padding:23px;
+  margin-bottom:22px;
+  border:1px solid #244a7c;
+  border-radius:20px;
+  background:linear-gradient(145deg,#15243d,#091426);
+  box-shadow:
+    0 12px 0 #07101e,
+    0 18px 30px #0009,
+    inset 0 1px 1px #ffffff25;
+  transition:transform .25s,box-shadow .25s;
 }
+
+.card:hover{
+  transform:translateY(-5px) rotateX(1deg);
+  box-shadow:
+    0 17px 0 #07101e,
+    0 25px 35px #000b,
+    0 0 20px #168cff30;
+}
+
 h2{
-  font-size:19px;
-  color:#69adff;
+  color:#65c5ff;
   margin-top:0;
+  text-shadow:0 0 12px #168cff55;
 }
+
 label{
   display:block;
-  margin:14px 0 8px;
-  color:#dce8fa;
+  margin:15px 0 8px;
+  color:#c5e4ff;
 }
+
 input,select,textarea{
   width:100%;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #354761;
-  background:#080f1d;
+  padding:14px;
+  border:1px solid #315b8d;
+  border-radius:12px;
+  background:#071020;
   color:white;
   font-size:15px;
   outline:none;
   margin-bottom:10px;
+  box-shadow:inset 0 3px 9px #0008;
 }
+
+input:focus,select:focus,textarea:focus{
+  border-color:#00cfff;
+  box-shadow:0 0 12px #168cff55;
+}
+
 textarea{
-  min-height:105px;
+  min-height:110px;
   resize:vertical;
 }
+
 button{
   width:100%;
-  padding:13px;
-  border:0;
-  border-radius:11px;
-  background:#287ee8;
+  padding:14px;
+  margin-top:9px;
+  border:1px solid #62baff;
+  border-radius:12px;
   color:white;
   font-size:16px;
   font-weight:bold;
-  margin-top:8px;
+  background:linear-gradient(145deg,#258fff,#0753b5);
+  box-shadow:
+    0 6px 0 #063775,
+    0 10px 18px #0008,
+    inset 0 1px 1px #ffffff60;
   cursor:pointer;
+  transition:.15s;
 }
-button:hover{background:#1765c5}
-.secondary{background:#263852}
-.danger{background:#a93242}
+
+button:active{
+  transform:translateY(5px);
+  box-shadow:0 1px 0 #063775;
+}
+
+.secondary{
+  background:linear-gradient(145deg,#253b5d,#101d34);
+  border-color:#45658d;
+  box-shadow:0 6px 0 #091321;
+}
+
+.danger{
+  background:linear-gradient(145deg,#d83e58,#861d37);
+  border-color:#ff7890;
+  box-shadow:0 5px 0 #511326;
+}
+
 .result{
-  background:#091321;
-  border:1px solid #30435e;
-  border-radius:12px;
-  padding:15px;
-  margin-top:13px;
-  line-height:1.8;
+  margin-top:16px;
+  padding:17px;
+  min-height:60px;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
+  line-height:1.9;
+  border:1px solid #2865a5;
+  border-radius:13px;
+  background:linear-gradient(145deg,#07182d,#050b16);
+  box-shadow:inset 0 4px 12px #0009;
 }
+
 .item{
-  background:#0b1424;
-  border:1px solid #2a3b54;
-  border-radius:12px;
-  padding:14px;
-  margin-top:12px;
+  margin-top:13px;
+  padding:15px;
+  border:1px solid #31547d;
+  border-radius:13px;
+  background:linear-gradient(145deg,#10223b,#081222);
+  box-shadow:0 5px 12px #0007;
   line-height:1.8;
+  overflow-wrap:anywhere;
 }
-.item strong{color:#69adff}
-.small{
-  color:#aabbd1;
-  font-size:13px;
-}
+
+.item strong{color:#5bbaff}
+
 footer{
   text-align:center;
-  color:#8394ad;
-  padding:20px 5px;
+  color:#8da9c9;
+  padding:25px 5px;
   font-size:13px;
+}
+
+.glow{
+  width:90px;
+  height:3px;
+  margin:12px auto;
+  border-radius:50%;
+  background:#00d9ff;
+  box-shadow:0 0 15px #00d9ff,0 0 30px #168cff;
+}
+
+@media(max-width:450px){
+  body{padding:12px}
+  .logo{font-size:32px}
+  .card{padding:17px}
+  header{padding:27px 10px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    transition:none!important;
+  }
 }
 </style>
 </head>
@@ -116,13 +217,14 @@ footer{
 <main>
 
 <header>
-  <h1>QUREO AI</h1>
-  <p>مساعدك للتعلم وحل التدريبات وفهم الأكواد</p>
+  <div class="logo">QUREO AI</div>
+  <div class="glow"></div>
+  <p>مساعدك الذكي للتعلم والتدريب</p>
   <p>Engineer Karim Hamada Abu Malek</p>
 </header>
 
 <section class="card">
-  <h2>🚀 ابدأ التدريب</h2>
+  <h2>🚀 مركز التدريب</h2>
 
   <label>اختر المادة</label>
   <select id="subject">
@@ -141,12 +243,12 @@ footer{
   </div>
 
   <button class="secondary" onclick="openQureo()">
-    فتح منصة Qureo
+    🌐 فتح منصة Qureo
   </button>
 </section>
 
 <section class="card">
-  <h2>➕ أضف سؤالًا وإجابته</h2>
+  <h2>➕ إضافة سؤال جديد</h2>
 
   <label>المادة</label>
   <select id="saveSubject">
@@ -159,27 +261,29 @@ footer{
   <textarea id="saveQuestion" placeholder="اكتب السؤال..."></textarea>
 
   <label>الإجابة أو الشرح</label>
-  <textarea id="saveAnswer" placeholder="اكتب الإجابة أو الشرح أو الكود..."></textarea>
+  <textarea id="saveAnswer" placeholder="اكتب الإجابة أو الكود..."></textarea>
 
-  <button onclick="saveQuestion()">حفظ السؤال والإجابة</button>
+  <button onclick="saveQuestion()">💾 حفظ السؤال</button>
 </section>
 
 <section class="card">
-  <h2>📚 الأسئلة المحفوظة</h2>
-  <input id="filter" placeholder="ابحث في الأسئلة المحفوظة..." oninput="showSaved()">
+  <h2>📚 مكتبة الأسئلة</h2>
+
+  <input id="filter" placeholder="ابحث عن سؤال..." oninput="showSaved()">
+
   <div id="savedList"></div>
 </section>
 
 <footer>
-  QUREO AI © 2026
-  <br>
-  تم التصميم بواسطة Engineer Karim Hamada Abu Malek
+  QUREO AI 3D
+  <br><br>
+  Designed by Engineer Karim Hamada Abu Malek
 </footer>
 
 </main>
 
 <script>
-const KEY = "qureo_ai_questions";
+const KEY="qureo_ai_3d_questions";
 
 function getData(){
   try{
@@ -194,91 +298,90 @@ function normalize(value){
 }
 
 function saveQuestion(){
-  const subject = document.getElementById("saveSubject").value;
-  const question = document.getElementById("saveQuestion").value.trim();
-  const answer = document.getElementById("saveAnswer").value.trim();
+  const subject=document.getElementById("saveSubject").value;
+  const question=document.getElementById("saveQuestion").value.trim();
+  const answer=document.getElementById("saveAnswer").value.trim();
 
   if(!question || !answer){
     alert("اكتب السؤال والإجابة أولاً");
     return;
   }
 
-  const data = getData();
+  const data=getData();
+
   data.push({
-    id: Date.now(),
-    subject,
-    question,
-    answer
+    id:Date.now(),
+    subject:subject,
+    question:question,
+    answer:answer
   });
 
   localStorage.setItem(KEY,JSON.stringify(data));
 
-  document.getElementById("saveQuestion").value = "";
-  document.getElementById("saveAnswer").value = "";
+  document.getElementById("saveQuestion").value="";
+  document.getElementById("saveAnswer").value="";
 
   showSaved();
   alert("تم حفظ السؤال بنجاح");
 }
 
 function searchQuestion(){
-  const subject = document.getElementById("subject").value;
-  const question = document.getElementById("question").value.trim();
-  const result = document.getElementById("result");
+  const subject=document.getElementById("subject").value;
+  const question=document.getElementById("question").value.trim();
+  const result=document.getElementById("result");
 
   if(!question){
-    result.textContent = "اكتب السؤال أولاً.";
+    result.textContent="اكتب السؤال أولاً.";
     return;
   }
 
-  const data = getData();
-  const found = data.find(item =>
-    item.subject === subject &&
-    normalize(item.question) === normalize(question)
+  const found=getData().find(item=>
+    item.subject===subject &&
+    normalize(item.question)===normalize(question)
   );
 
   if(found){
-    result.textContent = "الإجابة المحفوظة:\n\n" + found.answer;
+    result.textContent="الإجابة المحفوظة:\n\n"+found.answer;
   }else{
-    result.textContent =
-      "لم يتم العثور على إجابة محفوظة لهذا السؤال.\n\n" +
-      "يمكنك إضافة السؤال وإجابته من قسم (أضف سؤالاً وإجابته).";
+    result.textContent=
+      "لم نجد إجابة محفوظة لهذا السؤال.\n\n"+
+      "يمكنك إضافته إلى مكتبة الأسئلة.";
   }
 }
 
 function showSaved(){
-  const list = document.getElementById("savedList");
-  const filter = normalize(document.getElementById("filter").value);
-  const data = getData();
+  const list=document.getElementById("savedList");
+  const filter=normalize(document.getElementById("filter").value);
 
-  list.innerHTML = "";
+  list.innerHTML="";
 
-  const filtered = data.filter(item =>
+  const filtered=getData().filter(item=>
     normalize(item.question).includes(filter) ||
     normalize(item.subject).includes(filter)
   );
 
-  if(filtered.length === 0){
-    list.textContent = "لا توجد أسئلة محفوظة حتى الآن.";
+  if(filtered.length===0){
+    list.textContent="لا توجد أسئلة محفوظة.";
     return;
   }
 
-  filtered.forEach(item => {
-    const box = document.createElement("div");
-    box.className = "item";
+  filtered.forEach(item=>{
+    const box=document.createElement("div");
+    box.className="item";
 
-    const title = document.createElement("strong");
-    title.textContent = item.subject;
+    const title=document.createElement("strong");
+    title.textContent=item.subject;
 
-    const question = document.createElement("p");
-    question.textContent = "السؤال: " + item.question;
+    const question=document.createElement("p");
+    question.textContent="السؤال: "+item.question;
 
-    const answer = document.createElement("p");
-    answer.textContent = "الإجابة: " + item.answer;
+    const answer=document.createElement("p");
+    answer.textContent="الإجابة: "+item.answer;
 
-    const remove = document.createElement("button");
-    remove.className = "danger";
-    remove.textContent = "حذف السؤال";
-    remove.onclick = () => deleteQuestion(item.id);
+    const remove=document.createElement("button");
+    remove.className="danger";
+    remove.textContent="حذف السؤال";
+    remove.onclick=()=>deleteQuestion(item.id);
 
     box.append(title,question,answer,remove);
     list.appendChild(box);
@@ -286,9 +389,9 @@ function showSaved(){
 }
 
 function deleteQuestion(id){
-  if(!confirm("هل تريد حذف هذا السؤال؟")) return;
+  if(!confirm("هل تريد حذف السؤال؟"))return;
 
-  const data = getData().filter(item => item.id !== id);
+  const data=getData().filter(item=>item.id!==id);
   localStorage.setItem(KEY,JSON.stringify(data));
   showSaved();
 }
@@ -305,6 +408,3 @@ showSaved();
 
 </body>
 </html>
-
-
-
