@@ -5,108 +5,306 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QUREO AI</title>
+
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#0b1020;color:white;
- font-family:Arial,sans-serif;padding:20px
+  margin:0;
+  background:#080d19;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding:18px;
 }
 main{
- max-width:480px;margin:35px auto;
- background:#151d32;padding:24px;border-radius:20px
+  max-width:650px;
+  margin:25px auto;
 }
-h1{text-align:center;color:#55a5ff}
-p{text-align:center;color:#bac6d9}
-button,select,textarea{
- width:100%;padding:15px;margin-top:14px;
- border:0;border-radius:10px;font-size:16px
+header{
+  text-align:center;
+  padding:25px 12px;
+  background:linear-gradient(135deg,#172747,#10182b);
+  border:1px solid #263b60;
+  border-radius:22px;
+  margin-bottom:20px;
 }
-button{background:#2784ee;color:white;font-weight:bold}
-select,textarea{background:#26334e;color:white}
-textarea{min-height:130px}
+header h1{
+  color:#55a5ff;
+  font-size:34px;
+  margin:5px;
+}
+header p{color:#b9c9df}
+.card{
+  background:#111a2c;
+  border:1px solid #283750;
+  padding:20px;
+  border-radius:18px;
+  margin-bottom:17px;
+}
+h2{
+  font-size:19px;
+  color:#69adff;
+  margin-top:0;
+}
+label{
+  display:block;
+  margin:14px 0 8px;
+  color:#dce8fa;
+}
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #354761;
+  background:#080f1d;
+  color:white;
+  font-size:15px;
+  outline:none;
+  margin-bottom:10px;
+}
+textarea{
+  min-height:105px;
+  resize:vertical;
+}
+button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:11px;
+  background:#287ee8;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:8px;
+  cursor:pointer;
+}
+button:hover{background:#1765c5}
+.secondary{background:#263852}
+.danger{background:#a93242}
 .result{
- background:#26334e;padding:15px;
- margin-top:18px;border-radius:10px;line-height:1.8
+  background:#091321;
+  border:1px solid #30435e;
+  border-radius:12px;
+  padding:15px;
+  margin-top:13px;
+  line-height:1.8;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.item{
+  background:#0b1424;
+  border:1px solid #2a3b54;
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px;
+  line-height:1.8;
+}
+.item strong{color:#69adff}
+.small{
+  color:#aabbd1;
+  font-size:13px;
+}
+footer{
+  text-align:center;
+  color:#8394ad;
+  padding:20px 5px;
+  font-size:13px;
 }
 </style>
 </head>
+
 <body>
 <main>
-<p style="font-size:20px; font-weight:bold; text-align:center;">
-Engineer Karim Hamada Abu Malek
-</p>
-<h1>QUREO AI</h1>
-<p>مساعدك الذكي للتدريبات التعليمية</p>
 
-<button onclick="connect()">
-الاتصال بمنصة Qureo
-</button>
+<header>
+  <h1>QUREO AI</h1>
+  <p>مساعدك للتعلم وحل التدريبات وفهم الأكواد</p>
+  <p>Engineer Karim Hamada Abu Malek</p>
+</header>
 
-<label>اختر المادة</label>
-<select id="subject">
-<option>JavaScript</option>
-<option>Python</option>
-<option>الثقافة المالية</option>
-</select>
+<section class="card">
+  <h2>🚀 ابدأ التدريب</h2>
 
-<label>السؤال</label>
-<textarea id="question"
-placeholder="ضع السؤال هنا..."></textarea>
+  <label>اختر المادة</label>
+  <select id="subject">
+    <option value="JavaScript">JavaScript</option>
+    <option value="Python">Python</option>
+    <option value="الثقافة المالية">الثقافة المالية</option>
+  </select>
 
-<button onclick="help()">
-تحليل السؤال
-</button>
+  <label>اكتب السؤال</label>
+  <textarea id="question" placeholder="اكتب السؤال هنا..."></textarea>
 
-<div class="result" id="result">
-جاهز لاستقبال السؤال.
-</div>
+  <button onclick="searchQuestion()">🔍 ابحث عن الإجابة</button>
+
+  <div id="result" class="result">
+    الإجابة ستظهر هنا.
+  </div>
+
+  <button class="secondary" onclick="openQureo()">
+    فتح منصة Qureo
+  </button>
+</section>
+
+<section class="card">
+  <h2>➕ أضف سؤالًا وإجابته</h2>
+
+  <label>المادة</label>
+  <select id="saveSubject">
+    <option value="JavaScript">JavaScript</option>
+    <option value="Python">Python</option>
+    <option value="الثقافة المالية">الثقافة المالية</option>
+  </select>
+
+  <label>السؤال</label>
+  <textarea id="saveQuestion" placeholder="اكتب السؤال..."></textarea>
+
+  <label>الإجابة أو الشرح</label>
+  <textarea id="saveAnswer" placeholder="اكتب الإجابة أو الشرح أو الكود..."></textarea>
+
+  <button onclick="saveQuestion()">حفظ السؤال والإجابة</button>
+</section>
+
+<section class="card">
+  <h2>📚 الأسئلة المحفوظة</h2>
+  <input id="filter" placeholder="ابحث في الأسئلة المحفوظة..." oninput="showSaved()">
+  <div id="savedList"></div>
+</section>
+
+<footer>
+  QUREO AI © 2026
+  <br>
+  تم التصميم بواسطة Engineer Karim Hamada Abu Malek
+</footer>
+
 </main>
 
 <script>
-function connect(){
- window.open(
- "https://me-portal.qureo.education/login",
- "_blank"
- );
+const KEY = "qureo_ai_questions";
+
+function getData(){
+  try{
+    return JSON.parse(localStorage.getItem(KEY)) || [];
+  }catch(e){
+    return [];
+  }
 }
 
-function help(){
-  const q = document.getElementById("question").value.trim();
-  const s = document.getElementById("subject").value;
-  const r = document.getElementById("result");
+function normalize(value){
+  return value.trim().toLowerCase().replace(/\s+/g," ");
+}
 
-  if(!q){
-    r.textContent = "من فضلك اكتب السؤال أولا";
+function saveQuestion(){
+  const subject = document.getElementById("saveSubject").value;
+  const question = document.getElementById("saveQuestion").value.trim();
+  const answer = document.getElementById("saveAnswer").value.trim();
+
+  if(!question || !answer){
+    alert("اكتب السؤال والإجابة أولاً");
     return;
   }
 
-  const prompt = `ساعدني في فهم وحل هذا السؤال واشرح الإجابة خطوة بخطوة.
-المادة: ${s}
-السؤال: ${q}`;
+  const data = getData();
+  data.push({
+    id: Date.now(),
+    subject,
+    question,
+    answer
+  });
 
-  const chat = window.open("https://chatgpt.com/", "_blank");
+  localStorage.setItem(KEY,JSON.stringify(data));
 
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(prompt).then(()=>{
-      r.textContent = "تم نسخ السؤال! الصقه في ChatGPT للحصول على الحل والشرح.";
-    }).catch(()=>{
-      r.textContent = prompt;
-    });
-  } else {
-    r.textContent = prompt;
-  }
- }
+  document.getElementById("saveQuestion").value = "";
+  document.getElementById("saveAnswer").value = "";
 
- if(!q.trim()){
-  r.textContent="من فضلك اكتب السؤال أولاً.";
-  return;
- }
-
- r.textContent=
- "تم استلام سؤالك في مادة "+s+
- ". محرك التحليل والذكاء الاصطناعي سيتم ربطه في المرحلة القادمة.";
+  showSaved();
+  alert("تم حفظ السؤال بنجاح");
 }
+
+function searchQuestion(){
+  const subject = document.getElementById("subject").value;
+  const question = document.getElementById("question").value.trim();
+  const result = document.getElementById("result");
+
+  if(!question){
+    result.textContent = "اكتب السؤال أولاً.";
+    return;
+  }
+
+  const data = getData();
+  const found = data.find(item =>
+    item.subject === subject &&
+    normalize(item.question) === normalize(question)
+  );
+
+  if(found){
+    result.textContent = "الإجابة المحفوظة:\n\n" + found.answer;
+  }else{
+    result.textContent =
+      "لم يتم العثور على إجابة محفوظة لهذا السؤال.\n\n" +
+      "يمكنك إضافة السؤال وإجابته من قسم (أضف سؤالاً وإجابته).";
+  }
+}
+
+function showSaved(){
+  const list = document.getElementById("savedList");
+  const filter = normalize(document.getElementById("filter").value);
+  const data = getData();
+
+  list.innerHTML = "";
+
+  const filtered = data.filter(item =>
+    normalize(item.question).includes(filter) ||
+    normalize(item.subject).includes(filter)
+  );
+
+  if(filtered.length === 0){
+    list.textContent = "لا توجد أسئلة محفوظة حتى الآن.";
+    return;
+  }
+
+  filtered.forEach(item => {
+    const box = document.createElement("div");
+    box.className = "item";
+
+    const title = document.createElement("strong");
+    title.textContent = item.subject;
+
+    const question = document.createElement("p");
+    question.textContent = "السؤال: " + item.question;
+
+    const answer = document.createElement("p");
+    answer.textContent = "الإجابة: " + item.answer;
+
+    const remove = document.createElement("button");
+    remove.className = "danger";
+    remove.textContent = "حذف السؤال";
+    remove.onclick = () => deleteQuestion(item.id);
+
+    box.append(title,question,answer,remove);
+    list.appendChild(box);
+  });
+}
+
+function deleteQuestion(id){
+  if(!confirm("هل تريد حذف هذا السؤال؟")) return;
+
+  const data = getData().filter(item => item.id !== id);
+  localStorage.setItem(KEY,JSON.stringify(data));
+  showSaved();
+}
+
+function openQureo(){
+  window.open(
+    "https://me-portal.qureo.education/login",
+    "_blank"
+  );
+}
+
+showSaved();
 </script>
+
 </body>
 </html>
+
+
 
