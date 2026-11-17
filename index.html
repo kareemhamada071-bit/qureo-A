@@ -3,549 +3,464 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#030817">
-<title>QUREO AI | Future Learning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUREO AI</title>
 
 <style>
-*{
- margin:0;
- padding:0;
- box-sizing:border-box;
-}
-:root{
- --cyan:#00eaff;
- --blue:#087bff;
- --purple:#a52bff;
- --bg:#030817;
-}
-html{scroll-behavior:smooth}
-body{
-
-<div style="
- position:absolute;
- top:12px;
- right:22px;
- z-index:10;
- font-size:11px;
- letter-spacing:.5px;
- color:#00eaff;
- text-shadow:0 0 10px #00bfff;
- border-right:2px solid #a52bff;
- padding:6px 10px;
- background:rgba(0,234,255,.06);
- border-radius:5px;
-">
- Designed & Developed by <span style="color:#fff;font-weight:bold">Eng. Kareem Hamada</span>
-</div>
- min-height:100vh;
- background:var(--bg);
- color:white;
- font-family:Arial,sans-serif;
- overflow-x:hidden;
-}
-body:before{
- content:"";
- position:fixed;
- inset:0;
- z-index:-3;
- background:
- radial-gradient(ellipse at 15% 20%,#063d86 0%,transparent 38%),
- radial-gradient(ellipse at 85% 70%,#390d70 0%,transparent 38%),
- linear-gradient(135deg,#020617,#071631,#100724);
- background-size:200% 200%;
- animation:backgroundMove 15s ease infinite;
-}
-@keyframes backgroundMove{
- 0%,100%{background-position:0% 0%}
- 50%{background-position:100% 100%}
-}
-#stars{
- position:fixed;
- inset:0;
- z-index:-2;
- pointer-events:none;
- overflow:hidden;
-}
-.star{
- position:absolute;
- width:2px;
- height:2px;
- background:white;
- border-radius:50%;
- box-shadow:0 0 9px #00eaff;
- animation:twinkle 3s infinite alternate;
-}
-@keyframes twinkle{
- from{opacity:.15;transform:scale(.7)}
- to{opacity:1;transform:scale(1.8)}
-}
-.planet-glow{
- position:fixed;
- width:350px;
- height:350px;
- border-radius:50%;
- filter:blur(100px);
- opacity:.23;
- pointer-events:none;
- z-index:-1;
- animation:float 10s ease-in-out infinite alternate;
-}
-.glow1{background:#006eff;top:10%;left:-160px}
-.glow2{background:#a000ff;bottom:0;right:-160px}
-@keyframes float{
- to{transform:translate(70px,-50px) scale(1.2)}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* NAVIGATION */
-header{
- width:100%;
- border-bottom:1px solid #087bff55;
- background:#030817b8;
- backdrop-filter:blur(18px);
- position:relative;
- z-index:5;
-}
-nav{
- max-width:1800px;
- margin:auto;
- padding:20px 5%;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:20px;
-}
-.logo{
- font-size:clamp(22px,2.3vw,36px);
- font-weight:900;
- letter-spacing:1px;
- text-shadow:0 0 20px #00bfff;
-}
-.logo span{color:var(--cyan)}
-.nav-links{
- display:flex;
- gap:30px;
-}
-.nav-links a{
- color:#dceaff;
- text-decoration:none;
- font-size:15px;
- transition:.3s;
-}
-.nav-links a:hover{color:var(--cyan)}
-
-/* HERO */
-.hero{
- text-align:center;
- padding:65px 15px 45px;
-}
-.hero h1{
- font-size:clamp(48px,8vw,110px);
- font-weight:1000;
- letter-spacing:3px;
- background:linear-gradient(90deg,#fff,#00eaff,#a45bff,#fff);
- background-size:250%;
- -webkit-background-clip:text;
- background-clip:text;
- color:transparent;
- animation:shine 6s linear infinite;
- filter:drop-shadow(0 0 25px #008dff66);
-}
-@keyframes shine{
- to{background-position:250%}
-}
-.hero p{
- color:#c6d9ff;
- font-size:clamp(15px,2vw,25px);
- margin-top:15px;
-}
-.hero-tag{
- display:inline-block;
- margin-top:24px;
- padding:13px 30px;
- border:1px solid var(--cyan);
- border-radius:50px;
- color:white;
- background:#007bff18;
- box-shadow:0 0 25px #00dfff55,inset 0 0 15px #00dfff22;
+:root {
+    --cyan: #00eaff;
+    --purple: #a855ff;
+    --pink: #ed42ff;
 }
 
-/* MAIN LAYOUT */
-.layout{
- max-width:1800px;
- margin:auto;
- padding:20px 4%;
- display:grid;
- grid-template-columns:minmax(210px,280px) minmax(0,1fr);
- gap:30px;
- align-items:start;
+body {
+    min-height: 100vh;
+    background: #030719;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
 }
 
-/* ROBOT */
-.robot-side{
- text-align:center;
- padding-top:25px;
-}
-.robot{
- width:170px;
- height:170px;
- margin:0 auto 25px;
- border-radius:50%;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:100px;
- background:radial-gradient(circle,#1262a955,#050d28 70%);
- border:2px solid #00cfff;
- box-shadow:0 0 25px #00cfff88,inset 0 0 35px #006eff55;
- animation:robotFloat 4s ease-in-out infinite;
-}
-@keyframes robotFloat{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-16px)}
-}
-.feature{
- padding:22px 12px;
- margin-bottom:18px;
- border:1px solid #168dff;
- border-radius:19px;
- background:linear-gradient(140deg,#09285be8,#100b35e8);
- box-shadow:0 0 20px #087bff44,inset 0 0 20px #ffffff08;
- transition:.3s;
-}
-.feature:hover{
- transform:translateY(-6px) perspective(500px) rotateX(3deg);
- box-shadow:0 0 30px #00cfff88;
-}
-.feature-icon{font-size:34px}
-.feature h3{margin:10px 0;font-size:18px}
-.feature p{font-size:13px;color:#b9d6ff;line-height:1.8}
-
-/* GLASS PANELS */
-.panel{
- position:relative;
- overflow:hidden;
- padding:clamp(20px,3vw,38px);
- margin-bottom:25px;
- border:1px solid #168dff;
- border-radius:27px;
- background:linear-gradient(145deg,#06183ceF,#080d2deF);
- box-shadow:
- 0 0 35px #007bff55,
- inset 0 0 30px #087bff18,
- 0 25px 70px #0009;
- backdrop-filter:blur(20px);
- transform:perspective(1400px) rotateX(.5deg);
-}
-.panel:before{
- content:"";
- position:absolute;
- top:0;
- right:8%;
- width:84%;
- height:2px;
- background:linear-gradient(90deg,transparent,var(--cyan),transparent);
- box-shadow:0 0 20px var(--cyan);
-}
-.panel-title{
- color:var(--cyan);
- font-size:clamp(20px,2vw,28px);
- margin-bottom:25px;
- text-shadow:0 0 15px #00dfff66;
+/* خلفية الفضاء */
+.space {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 45%, #18245b 0%, #090e2c 45%, #020514 100%);
 }
 
-/* FORM */
-.form-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:20px;
-}
-label{
- display:block;
- margin-bottom:12px;
- color:#d8eaff;
- font-weight:bold;
-}
-select,textarea{
- width:100%;
- padding:17px;
- color:white;
- background:#06132f;
- border:1px solid #168dff;
- border-radius:14px;
- font-size:16px;
- outline:none;
- transition:.3s;
-}
-select:focus,textarea:focus{
- border-color:var(--cyan);
- box-shadow:0 0 20px #00dfff55;
-}
-select option{background:#07152f;color:white}
-.question-label{margin-top:25px}
-textarea{
- min-height:160px;
- resize:vertical;
- line-height:1.9;
-}
-textarea::placeholder{color:#8198bd}
-
-/* BUTTONS */
-.buttons{
- display:flex;
- flex-wrap:wrap;
- gap:15px;
- margin-top:20px;
-}
-button{
- padding:16px 27px;
- border:0;
- border-radius:14px;
- color:white;
- font-size:16px;
- font-weight:bold;
- cursor:pointer;
- transition:.3s;
-}
-.solve{
- flex:1;
- background:linear-gradient(100deg,#a500ff,#087bff,#00dfff);
- box-shadow:0 0 25px #008cff66;
-}
-.clear{
- background:#102b52;
- border:1px solid #3f9dff;
-}
-button:hover{
- transform:translateY(-4px) scale(1.02);
- filter:brightness(1.2);
- box-shadow:0 0 28px #00cfff77;
-}
-button:active{transform:scale(.97)}
-
-/* ANSWER */
-.answer-box{
- min-height:150px;
- padding:22px;
- background:#030e28;
- border:1px solid #176fc8;
- border-radius:17px;
- color:#d9eaff;
- line-height:2;
- white-space:pre-wrap;
- overflow-wrap:anywhere;
-}
-.answer-heading{
- color:var(--cyan);
- font-size:19px;
- font-weight:bold;
- margin-bottom:12px;
+.space::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+        radial-gradient(circle at 25% 35%, rgba(0,140,255,.35), transparent 22%),
+        radial-gradient(circle at 75% 65%, rgba(157,30,255,.3), transparent 25%),
+        radial-gradient(circle at 50% 10%, rgba(0,220,255,.15), transparent 25%);
+    animation: nebula 16s ease-in-out infinite alternate;
 }
 
-/* FOOTER */
-footer{
- text-align:center;
- padding:30px 15px;
- color:#9ab5db;
- border-top:1px solid #147bff44;
- margin-top:25px;
-}
-footer span{color:#00eaff}
-
-/* LARGE AND 4K SCREENS */
-@media(min-width:2000px){
- body{font-size:21px}
- nav,.layout{max-width:2200px}
- .layout{grid-template-columns:340px minmax(0,1fr);gap:45px}
- .hero{padding-top:90px}
- .hero h1{font-size:140px}
- .hero p{font-size:30px}
- .robot{width:220px;height:220px;font-size:130px}
- .panel{padding:48px;border-radius:35px}
- .feature{padding:30px}
- select,textarea{font-size:21px;padding:22px}
- button{font-size:21px;padding:20px 32px}
- .answer-box{font-size:20px}
+@keyframes nebula {
+    from { transform: rotate(0deg) scale(1); }
+    to { transform: rotate(12deg) scale(1.25); }
 }
 
-/* TABLETS AND PHONES */
-@media(max-width:850px){
- .layout{grid-template-columns:1fr}
- .robot-side{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  padding:0;
- }
- .robot{grid-column:1/-1;width:125px;height:125px;font-size:75px}
- .feature{margin:0;padding:15px 7px}
- .feature p{font-size:11px}
- .feature h3{font-size:14px}
+/* النجوم */
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 120px 90px, #00eaff, transparent),
+        radial-gradient(1px 1px at 200px 180px, white, transparent),
+        radial-gradient(2px 2px at 300px 50px, #b58aff, transparent),
+        radial-gradient(1px 1px at 400px 250px, white, transparent);
+    background-size: 450px 300px;
+    animation: starsMove 35s linear infinite;
+    opacity: .7;
 }
-@media(max-width:550px){
- nav{flex-direction:column}
- .nav-links{gap:15px;flex-wrap:wrap;justify-content:center}
- .nav-links a{font-size:12px}
- .hero{padding:45px 10px 25px}
- .layout{padding:12px}
- .form-grid{grid-template-columns:1fr}
- .panel{padding:19px;border-radius:20px}
- .robot-side{gap:8px}
- .feature-icon{font-size:25px}
- .feature h3{font-size:12px}
- .feature p{font-size:10px}
- .buttons{flex-direction:column}
- button{width:100%}
+
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-300px); }
 }
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{
-  animation-duration:.01ms!important;
-  animation-iteration-count:1!important;
-  scroll-behavior:auto!important;
- }
+
+/* الكواكب */
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: planetFloat 9s ease-in-out infinite alternate;
+}
+
+.planet-one {
+    width: 230px;
+    height: 230px;
+    top: 13%;
+    left: -75px;
+    background: radial-gradient(circle at 30% 30%, #80eaff, #1853b7 40%, #080e38 75%);
+    box-shadow: 0 0 70px #126bff, inset -20px -15px 45px #02051b;
+}
+
+.planet-two {
+    width: 180px;
+    height: 180px;
+    right: -65px;
+    bottom: 12%;
+    background: radial-gradient(circle at 35% 30%, #e3aaff, #7132b6 45%, #13072f 80%);
+    box-shadow: 0 0 70px #922fff, inset -20px -20px 45px #08021c;
+    animation-delay: -4s;
+}
+
+@keyframes planetFloat {
+    from { transform: translateY(-15px) rotate(-5deg); }
+    to { transform: translateY(20px) rotate(8deg); }
+}
+
+/* إضاءة عامة */
+.glow {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 30%, rgba(2,5,22,.65));
+}
+
+/* اسم المصمم */
+.developer {
+    position: absolute;
+    top: 17px;
+    right: 18px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 15px;
+    border: 1px solid rgba(0,234,255,.5);
+    border-radius: 30px;
+    background: rgba(5,15,45,.7);
+    box-shadow: 0 0 20px rgba(0,180,255,.2);
+    backdrop-filter: blur(12px);
+    font-size: 11px;
+    color: #dcecff;
+}
+
+.developer strong {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+}
+
+/* العنوان */
+header {
+    text-align: center;
+    padding: 75px 15px 20px;
+}
+
+.logo {
+    font-size: clamp(42px, 8vw, 76px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #00eaff, #9a5cff, #ff3de5, #00eaff);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 18px #147cff);
+    animation: logoMove 6s linear infinite;
+}
+
+@keyframes logoMove {
+    to { background-position: 300% center; }
+}
+
+.subtitle {
+    margin-top: 12px;
+    color: #cbdcff;
+    font-size: 16px;
+    text-shadow: 0 0 12px #168bff;
+}
+
+/* المحتوى */
+.container {
+    width: min(1100px, 94%);
+    margin: 35px auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 22px;
+}
+
+.panel {
+    padding: 25px;
+    border-radius: 22px;
+    border: 1px solid rgba(0,220,255,.4);
+    background: rgba(5,13,39,.78);
+    backdrop-filter: blur(14px);
+    box-shadow:
+        0 0 25px rgba(0,160,255,.16),
+        inset 0 0 30px rgba(70,90,200,.08);
+    transition: .3s;
+}
+
+.panel:hover {
+    border-color: var(--purple);
+    box-shadow: 0 0 30px rgba(150,50,255,.25);
+}
+
+.panel h2 {
+    color: var(--cyan);
+    margin-bottom: 20px;
+    text-shadow: 0 0 12px #008cff;
+}
+
+.robot {
+    text-align: center;
+    font-size: 85px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px #00cfff);
+    animation: robotFloat 4s ease-in-out infinite;
+}
+
+@keyframes robotFloat {
+    50% { transform: translateY(-13px); }
+}
+
+.features {
+    display: grid;
+    gap: 15px;
+}
+
+.feature {
+    padding: 17px;
+    border-radius: 14px;
+    background: rgba(30,65,130,.25);
+    border: 1px solid rgba(100,170,255,.25);
+    transition: .3s;
+}
+
+.feature:hover {
+    transform: translateX(-5px);
+    border-color: var(--cyan);
+}
+
+.feature strong {
+    display: block;
+    color: #8edfff;
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: #c6d5f4;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+label {
+    display: block;
+    margin: 16px 0 8px;
+    color: #bcecff;
+    font-weight: bold;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 14px;
+    color: white;
+    background: #101d40;
+    border: 1px solid #246cbb;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+}
+
+select option {
+    background: #101d40;
+}
+
+textarea {
+    min-height: 145px;
+    resize: vertical;
+    line-height: 1.8;
+}
+
+select:focus, textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 14px rgba(0,234,255,.25);
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.solve {
+    color: #041126;
+    background: linear-gradient(90deg, #00eaff, #8b5cff);
+    box-shadow: 0 0 15px rgba(0,200,255,.2);
+}
+
+.clear {
+    color: white;
+    background: #26375e;
+    border: 1px solid #5275ad;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.2);
+}
+
+.answer {
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(0,10,30,.78);
+    border: 1px solid rgba(0,234,255,.3);
+    min-height: 90px;
+    line-height: 1.8;
+    color: #d7eaff;
+    white-space: pre-wrap;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: #b9c9e9;
+    font-size: 13px;
+}
+
+@media(max-width:750px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .planet-one {
+        width: 140px;
+        height: 140px;
+    }
+
+    .planet-two {
+        width: 120px;
+        height: 120px;
+    }
+
+    .developer {
+        right: 10px;
+        font-size: 9px;
+        padding: 8px 10px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="stars"></div>
-<div class="planet-glow glow1"></div>
-<div class="planet-glow glow2"></div>
+<div class="space">
+    <div class="stars"></div>
+    <div class="planet planet-one"></div>
+    <div class="planet planet-two"></div>
+</div>
+<div class="glow"></div>
+
+<div class="developer">
+    ✦ Designed & Developed by
+    <strong>Eng. Kareem Hamada</strong>
+</div>
 
 <header>
-<nav>
- <div class="logo">🎓 QUREO <span>AI</span></div>
- <div class="nav-links">
-  <a href="#home">الرئيسية</a>
-  <a href="#features">المميزات</a>
-  <a href="#about">حول الموقع</a>
- </div>
-</nav>
+    <div class="logo">QUREO AI</div>
+    <p class="subtitle">Solve • Learn • Grow</p>
 </header>
 
-<main id="home">
+<main class="container">
 
-<section class="hero">
- <h1>QUREO AI</h1>
- <p>مساعدك الذكي للتعلم وفهم تدريبات كيريو</p>
- <div class="hero-tag">⚡ افهم · حل · تعلم بشكل أذكى</div>
-</section>
+    <section class="panel">
+        <div class="robot">🤖</div>
+        <h2>مرحباً بك في QUREO AI</h2>
 
-<div class="layout">
+        <div class="features">
+            <div class="feature">
+                <strong>✨ مساعدة ذكية</strong>
+                <p>مساعدك في فهم الأسئلة والتدريبات التعليمية.</p>
+            </div>
 
-<aside class="robot-side" id="features">
- <div class="robot">🤖</div>
+            <div class="feature">
+                <strong>📚 شرح مبسط</strong>
+                <p>تعلم خطوات الحل وافهم الإجابة بطريقة سهلة.</p>
+            </div>
 
- <article class="feature">
-  <div class="feature-icon">⚡</div>
-  <h3>مساعدة ذكية</h3>
-  <p>ساعد نفسك على فهم الأسئلة</p>
- </article>
+            <div class="feature">
+                <strong>💻 مواد متعددة</strong>
+                <p>Python وJavaScript والثقافة المالية.</p>
+            </div>
+        </div>
+    </section>
 
- <article class="feature">
-  <div class="feature-icon">🧠</div>
-  <h3>شرح مبسط</h3>
-  <p>تعلم خطوة بخطوة</p>
- </article>
+    <section class="panel">
+        <h2>🚀 حلّل سؤالك</h2>
 
- <article class="feature">
-  <div class="feature-icon">🚀</div>
-  <h3>مواد متعددة</h3>
-  <p>JavaScript وPython والثقافة المالية</p>
- </article>
-</aside>
+        <label for="subject">اختر المادة</label>
+        <select id="subject">
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="الثقافة المالية">الثقافة المالية</option>
+        </select>
 
-<div class="content">
+        <label for="type">نوع السؤال</label>
+        <select id="type">
+            <option value="اختيار من متعدد">اختيار من متعدد</option>
+            <option value="برمجة">برمجة</option>
+            <option value="سؤال آخر">سؤال آخر</option>
+        </select>
 
-<section class="panel">
- <h2 class="panel-title">🚀 ابدأ التعلم</h2>
+        <label for="question">اكتب السؤال هنا</label>
+        <textarea id="question" placeholder="انسخ السؤال والصقه هنا..."></textarea>
 
- <div class="form-grid">
-  <div>
-   <label for="subject">📚 اختر المادة</label>
-   <select id="subject">
-    <option value="JavaScript">JavaScript</option>
-    <option value="Python">Python</option>
-    <option value="الثقافة المالية">الثقافة المالية</option>
-   </select>
-  </div>
+        <div class="buttons">
+            <button class="solve" onclick="solveQuestion()">حل السؤال ✨</button>
+            <button class="clear" onclick="clearQuestion()">مسح</button>
+        </div>
 
-  <div>
-   <label for="type">❓ نوع السؤال</label>
-   <select id="type">
-    <option value="اختيار من متعدد">اختيار من متعدد</option>
-    <option value="كتابة كود">كتابة كود</option>
-    <option value="سؤال آخر">سؤال آخر</option>
-   </select>
-  </div>
- </div>
+        <div class="answer" id="answer">
+            اكتب سؤالك هنا لتبدأ.
+        </div>
+    </section>
 
- <label class="question-label" for="question">✍️ اكتب السؤال هنا</label>
- <textarea id="question" placeholder="أدخل السؤال أو الصق نصه هنا..."></textarea>
-
- <div class="buttons">
-  <button class="solve" onclick="solve()">✨ حل السؤال وشرحه</button>
-  <button class="clear" onclick="clearAll()">🗑️ مسح الكل</button>
- </div>
-</section>
-
-<section class="panel" id="about">
- <h2 class="panel-title">💡 الإجابة والشرح</h2>
- <div class="answer-box" id="result">
-  <div class="answer-heading">مرحبًا بك في QUREO AI</div>
-  اكتب سؤالك لبدء التعلم. ستظهر هنا الإجابة والشرح بعد ربط خدمة الحل.
- </div>
-</section>
-
-</div>
-</div>
 </main>
 
 <footer>
- 💜 QUREO AI · <span>معًا نحو مستقبل أذكى</span>
+    QUREO AI © 2026 — جميع الحقوق محفوظة
 </footer>
 
 <script>
-// نجوم الخلفية
-const stars=document.getElementById("stars");
-for(let i=0;i<110;i++){
- const s=document.createElement("span");
- s.className="star";
- s.style.top=Math.random()*100+"%";
- s.style.left=Math.random()*100+"%";
- s.style.animationDelay=Math.random()*4+"s";
- s.style.animationDuration=(2+Math.random()*4)+"s";
- stars.appendChild(s);
+function solveQuestion() {
+    const question = document.getElementById("question").value.trim();
+    const answer = document.getElementById("answer");
+
+    if (!question) {
+        answer.textContent = "من فضلك اكتب السؤال أولاً.";
+        return;
+    }
+
+    answer.textContent =
+        "تم استقبال السؤال بنجاح!\n\n" +
+        "المادة: " + document.getElementById("subject").value +
+        "\nنوع السؤال: " + document.getElementById("type").value +
+        "\n\nيلزم ربط خدمة ذكاء اصطناعي آمنة لتقديم الحل والشرح الفعلي.";
 }
 
-// استقبال السؤال
-function solve(){
- const question=document.getElementById("question").value.trim();
- const subject=document.getElementById("subject").value;
- const type=document.getElementById("type").value;
- const result=document.getElementById("result");
-
- if(!question){
-  result.textContent="⚠️ من فضلك اكتب السؤال أولاً.";
-  return;
- }
-
- result.textContent=
- "✅ تم استقبال السؤال بنجاح!\n\n"+
- "📚 المادة: "+subject+"\n"+
- "❓ نوع السؤال: "+type+
- "\n\n📝 السؤال:\n"+question+
- "\n\n⏳ الواجهة جاهزة. الخطوة التالية هي ربط قاعدة الأسئلة وخدمة الذكاء الاصطناعي لإنتاج الإجابة والشرح.";
-}
-
-// مسح البيانات
-function clearAll(){
- document.getElementById("question").value="";
- document.getElementById("result").textContent=
- "اكتب سؤالك لبدء التعلم.";
+function clearQuestion() {
+    document.getElementById("question").value = "";
+    document.getElementById("answer").textContent = "اكتب سؤالك هنا لتبدأ.";
 }
 </script>
 
 </body>
- </html>
+</html>
