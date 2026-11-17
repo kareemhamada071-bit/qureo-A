@@ -4,406 +4,530 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QUREO AI 3D</title>
+<meta name="theme-color" content="#030817">
+<title>QUREO AI | Future Learning</title>
 
 <style>
-*{box-sizing:border-box}
-
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+}
 :root{
-  --blue:#168cff;
-  --cyan:#00e5ff;
-  --bg:#050914;
+ --cyan:#00eaff;
+ --blue:#087bff;
+ --purple:#a52bff;
+ --bg:#030817;
 }
-
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  min-height:100vh;
-  padding:18px;
-  font-family:Arial,sans-serif;
-  color:white;
-  background:
-    radial-gradient(ellipse at 50% 0%,#12346a 0%,transparent 48%),
-    radial-gradient(ellipse at 100% 80%,#101c45 0%,transparent 40%),
-    var(--bg);
-  overflow-x:hidden;
+ min-height:100vh;
+ background:var(--bg);
+ color:white;
+ font-family:Arial,sans-serif;
+ overflow-x:hidden;
+}
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-3;
+ background:
+ radial-gradient(ellipse at 15% 20%,#063d86 0%,transparent 38%),
+ radial-gradient(ellipse at 85% 70%,#390d70 0%,transparent 38%),
+ linear-gradient(135deg,#020617,#071631,#100724);
+ background-size:200% 200%;
+ animation:backgroundMove 15s ease infinite;
+}
+@keyframes backgroundMove{
+ 0%,100%{background-position:0% 0%}
+ 50%{background-position:100% 100%}
+}
+#stars{
+ position:fixed;
+ inset:0;
+ z-index:-2;
+ pointer-events:none;
+ overflow:hidden;
+}
+.star{
+ position:absolute;
+ width:2px;
+ height:2px;
+ background:white;
+ border-radius:50%;
+ box-shadow:0 0 9px #00eaff;
+ animation:twinkle 3s infinite alternate;
+}
+@keyframes twinkle{
+ from{opacity:.15;transform:scale(.7)}
+ to{opacity:1;transform:scale(1.8)}
+}
+.planet-glow{
+ position:fixed;
+ width:350px;
+ height:350px;
+ border-radius:50%;
+ filter:blur(100px);
+ opacity:.23;
+ pointer-events:none;
+ z-index:-1;
+ animation:float 10s ease-in-out infinite alternate;
+}
+.glow1{background:#006eff;top:10%;left:-160px}
+.glow2{background:#a000ff;bottom:0;right:-160px}
+@keyframes float{
+ to{transform:translate(70px,-50px) scale(1.2)}
 }
 
-main{
-  max-width:680px;
-  margin:25px auto;
-  perspective:1000px;
-}
-
+/* NAVIGATION */
 header{
-  text-align:center;
-  padding:35px 15px;
-  margin-bottom:25px;
-  border:1px solid #287bdc;
-  border-radius:25px;
-  background:linear-gradient(145deg,#172b50,#091326);
-  box-shadow:
-    0 15px 35px #0009,
-    0 0 25px #168cff35,
-    inset 0 1px 1px #ffffff30;
-  transform:rotateX(3deg);
+ width:100%;
+ border-bottom:1px solid #087bff55;
+ background:#030817b8;
+ backdrop-filter:blur(18px);
+ position:relative;
+ z-index:5;
 }
-
+nav{
+ max-width:1800px;
+ margin:auto;
+ padding:20px 5%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+}
 .logo{
-  font-size:39px;
-  font-weight:900;
-  letter-spacing:3px;
-  color:#63caff;
-  text-shadow:
-    0 0 8px #168cff,
-    0 0 20px #168cff,
-    0 5px 0 #07509b;
+ font-size:clamp(22px,2.3vw,36px);
+ font-weight:900;
+ letter-spacing:1px;
+ text-shadow:0 0 20px #00bfff;
+}
+.logo span{color:var(--cyan)}
+.nav-links{
+ display:flex;
+ gap:30px;
+}
+.nav-links a{
+ color:#dceaff;
+ text-decoration:none;
+ font-size:15px;
+ transition:.3s;
+}
+.nav-links a:hover{color:var(--cyan)}
+
+/* HERO */
+.hero{
+ text-align:center;
+ padding:65px 15px 45px;
+}
+.hero h1{
+ font-size:clamp(48px,8vw,110px);
+ font-weight:1000;
+ letter-spacing:3px;
+ background:linear-gradient(90deg,#fff,#00eaff,#a45bff,#fff);
+ background-size:250%;
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+ animation:shine 6s linear infinite;
+ filter:drop-shadow(0 0 25px #008dff66);
+}
+@keyframes shine{
+ to{background-position:250%}
+}
+.hero p{
+ color:#c6d9ff;
+ font-size:clamp(15px,2vw,25px);
+ margin-top:15px;
+}
+.hero-tag{
+ display:inline-block;
+ margin-top:24px;
+ padding:13px 30px;
+ border:1px solid var(--cyan);
+ border-radius:50px;
+ color:white;
+ background:#007bff18;
+ box-shadow:0 0 25px #00dfff55,inset 0 0 15px #00dfff22;
 }
 
-header p{
-  color:#b7d8ff;
-  line-height:1.7;
+/* MAIN LAYOUT */
+.layout{
+ max-width:1800px;
+ margin:auto;
+ padding:20px 4%;
+ display:grid;
+ grid-template-columns:minmax(210px,280px) minmax(0,1fr);
+ gap:30px;
+ align-items:start;
 }
 
-.card{
-  position:relative;
-  padding:23px;
-  margin-bottom:22px;
-  border:1px solid #244a7c;
-  border-radius:20px;
-  background:linear-gradient(145deg,#15243d,#091426);
-  box-shadow:
-    0 12px 0 #07101e,
-    0 18px 30px #0009,
-    inset 0 1px 1px #ffffff25;
-  transition:transform .25s,box-shadow .25s;
+/* ROBOT */
+.robot-side{
+ text-align:center;
+ padding-top:25px;
+}
+.robot{
+ width:170px;
+ height:170px;
+ margin:0 auto 25px;
+ border-radius:50%;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ font-size:100px;
+ background:radial-gradient(circle,#1262a955,#050d28 70%);
+ border:2px solid #00cfff;
+ box-shadow:0 0 25px #00cfff88,inset 0 0 35px #006eff55;
+ animation:robotFloat 4s ease-in-out infinite;
+}
+@keyframes robotFloat{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-16px)}
+}
+.feature{
+ padding:22px 12px;
+ margin-bottom:18px;
+ border:1px solid #168dff;
+ border-radius:19px;
+ background:linear-gradient(140deg,#09285be8,#100b35e8);
+ box-shadow:0 0 20px #087bff44,inset 0 0 20px #ffffff08;
+ transition:.3s;
+}
+.feature:hover{
+ transform:translateY(-6px) perspective(500px) rotateX(3deg);
+ box-shadow:0 0 30px #00cfff88;
+}
+.feature-icon{font-size:34px}
+.feature h3{margin:10px 0;font-size:18px}
+.feature p{font-size:13px;color:#b9d6ff;line-height:1.8}
+
+/* GLASS PANELS */
+.panel{
+ position:relative;
+ overflow:hidden;
+ padding:clamp(20px,3vw,38px);
+ margin-bottom:25px;
+ border:1px solid #168dff;
+ border-radius:27px;
+ background:linear-gradient(145deg,#06183ceF,#080d2deF);
+ box-shadow:
+ 0 0 35px #007bff55,
+ inset 0 0 30px #087bff18,
+ 0 25px 70px #0009;
+ backdrop-filter:blur(20px);
+ transform:perspective(1400px) rotateX(.5deg);
+}
+.panel:before{
+ content:"";
+ position:absolute;
+ top:0;
+ right:8%;
+ width:84%;
+ height:2px;
+ background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+ box-shadow:0 0 20px var(--cyan);
+}
+.panel-title{
+ color:var(--cyan);
+ font-size:clamp(20px,2vw,28px);
+ margin-bottom:25px;
+ text-shadow:0 0 15px #00dfff66;
 }
 
-.card:hover{
-  transform:translateY(-5px) rotateX(1deg);
-  box-shadow:
-    0 17px 0 #07101e,
-    0 25px 35px #000b,
-    0 0 20px #168cff30;
+/* FORM */
+.form-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:20px;
 }
-
-h2{
-  color:#65c5ff;
-  margin-top:0;
-  text-shadow:0 0 12px #168cff55;
-}
-
 label{
-  display:block;
-  margin:15px 0 8px;
-  color:#c5e4ff;
+ display:block;
+ margin-bottom:12px;
+ color:#d8eaff;
+ font-weight:bold;
 }
-
-input,select,textarea{
-  width:100%;
-  padding:14px;
-  border:1px solid #315b8d;
-  border-radius:12px;
-  background:#071020;
-  color:white;
-  font-size:15px;
-  outline:none;
-  margin-bottom:10px;
-  box-shadow:inset 0 3px 9px #0008;
+select,textarea{
+ width:100%;
+ padding:17px;
+ color:white;
+ background:#06132f;
+ border:1px solid #168dff;
+ border-radius:14px;
+ font-size:16px;
+ outline:none;
+ transition:.3s;
 }
-
-input:focus,select:focus,textarea:focus{
-  border-color:#00cfff;
-  box-shadow:0 0 12px #168cff55;
+select:focus,textarea:focus{
+ border-color:var(--cyan);
+ box-shadow:0 0 20px #00dfff55;
 }
-
+select option{background:#07152f;color:white}
+.question-label{margin-top:25px}
 textarea{
-  min-height:110px;
-  resize:vertical;
+ min-height:160px;
+ resize:vertical;
+ line-height:1.9;
 }
+textarea::placeholder{color:#8198bd}
 
+/* BUTTONS */
+.buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:15px;
+ margin-top:20px;
+}
 button{
-  width:100%;
-  padding:14px;
-  margin-top:9px;
-  border:1px solid #62baff;
-  border-radius:12px;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  background:linear-gradient(145deg,#258fff,#0753b5);
-  box-shadow:
-    0 6px 0 #063775,
-    0 10px 18px #0008,
-    inset 0 1px 1px #ffffff60;
-  cursor:pointer;
-  transition:.15s;
+ padding:16px 27px;
+ border:0;
+ border-radius:14px;
+ color:white;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+ transition:.3s;
+}
+.solve{
+ flex:1;
+ background:linear-gradient(100deg,#a500ff,#087bff,#00dfff);
+ box-shadow:0 0 25px #008cff66;
+}
+.clear{
+ background:#102b52;
+ border:1px solid #3f9dff;
+}
+button:hover{
+ transform:translateY(-4px) scale(1.02);
+ filter:brightness(1.2);
+ box-shadow:0 0 28px #00cfff77;
+}
+button:active{transform:scale(.97)}
+
+/* ANSWER */
+.answer-box{
+ min-height:150px;
+ padding:22px;
+ background:#030e28;
+ border:1px solid #176fc8;
+ border-radius:17px;
+ color:#d9eaff;
+ line-height:2;
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+}
+.answer-heading{
+ color:var(--cyan);
+ font-size:19px;
+ font-weight:bold;
+ margin-bottom:12px;
 }
 
-button:active{
-  transform:translateY(5px);
-  box-shadow:0 1px 0 #063775;
-}
-
-.secondary{
-  background:linear-gradient(145deg,#253b5d,#101d34);
-  border-color:#45658d;
-  box-shadow:0 6px 0 #091321;
-}
-
-.danger{
-  background:linear-gradient(145deg,#d83e58,#861d37);
-  border-color:#ff7890;
-  box-shadow:0 5px 0 #511326;
-}
-
-.result{
-  margin-top:16px;
-  padding:17px;
-  min-height:60px;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  line-height:1.9;
-  border:1px solid #2865a5;
-  border-radius:13px;
-  background:linear-gradient(145deg,#07182d,#050b16);
-  box-shadow:inset 0 4px 12px #0009;
-}
-
-.item{
-  margin-top:13px;
-  padding:15px;
-  border:1px solid #31547d;
-  border-radius:13px;
-  background:linear-gradient(145deg,#10223b,#081222);
-  box-shadow:0 5px 12px #0007;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-}
-
-.item strong{color:#5bbaff}
-
+/* FOOTER */
 footer{
-  text-align:center;
-  color:#8da9c9;
-  padding:25px 5px;
-  font-size:13px;
+ text-align:center;
+ padding:30px 15px;
+ color:#9ab5db;
+ border-top:1px solid #147bff44;
+ margin-top:25px;
+}
+footer span{color:#00eaff}
+
+/* LARGE AND 4K SCREENS */
+@media(min-width:2000px){
+ body{font-size:21px}
+ nav,.layout{max-width:2200px}
+ .layout{grid-template-columns:340px minmax(0,1fr);gap:45px}
+ .hero{padding-top:90px}
+ .hero h1{font-size:140px}
+ .hero p{font-size:30px}
+ .robot{width:220px;height:220px;font-size:130px}
+ .panel{padding:48px;border-radius:35px}
+ .feature{padding:30px}
+ select,textarea{font-size:21px;padding:22px}
+ button{font-size:21px;padding:20px 32px}
+ .answer-box{font-size:20px}
 }
 
-.glow{
-  width:90px;
-  height:3px;
-  margin:12px auto;
-  border-radius:50%;
-  background:#00d9ff;
-  box-shadow:0 0 15px #00d9ff,0 0 30px #168cff;
+/* TABLETS AND PHONES */
+@media(max-width:850px){
+ .layout{grid-template-columns:1fr}
+ .robot-side{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  padding:0;
+ }
+ .robot{grid-column:1/-1;width:125px;height:125px;font-size:75px}
+ .feature{margin:0;padding:15px 7px}
+ .feature p{font-size:11px}
+ .feature h3{font-size:14px}
 }
-
-@media(max-width:450px){
-  body{padding:12px}
-  .logo{font-size:32px}
-  .card{padding:17px}
-  header{padding:27px 10px}
+@media(max-width:550px){
+ nav{flex-direction:column}
+ .nav-links{gap:15px;flex-wrap:wrap;justify-content:center}
+ .nav-links a{font-size:12px}
+ .hero{padding:45px 10px 25px}
+ .layout{padding:12px}
+ .form-grid{grid-template-columns:1fr}
+ .panel{padding:19px;border-radius:20px}
+ .robot-side{gap:8px}
+ .feature-icon{font-size:25px}
+ .feature h3{font-size:12px}
+ .feature p{font-size:10px}
+ .buttons{flex-direction:column}
+ button{width:100%}
 }
-
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    transition:none!important;
-  }
+ *,*::before,*::after{
+  animation-duration:.01ms!important;
+  animation-iteration-count:1!important;
+  scroll-behavior:auto!important;
+ }
 }
 </style>
 </head>
 
 <body>
-<main>
+
+<div id="stars"></div>
+<div class="planet-glow glow1"></div>
+<div class="planet-glow glow2"></div>
 
 <header>
-  <div class="logo">QUREO AI</div>
-  <div class="glow"></div>
-  <p>مساعدك الذكي للتعلم والتدريب</p>
-  <p>Engineer Karim Hamada Abu Malek</p>
+<nav>
+ <div class="logo">🎓 QUREO <span>AI</span></div>
+ <div class="nav-links">
+  <a href="#home">الرئيسية</a>
+  <a href="#features">المميزات</a>
+  <a href="#about">حول الموقع</a>
+ </div>
+</nav>
 </header>
 
-<section class="card">
-  <h2>🚀 مركز التدريب</h2>
+<main id="home">
 
-  <label>اختر المادة</label>
-  <select id="subject">
+<section class="hero">
+ <h1>QUREO AI</h1>
+ <p>مساعدك الذكي للتعلم وفهم تدريبات كيريو</p>
+ <div class="hero-tag">⚡ افهم · حل · تعلم بشكل أذكى</div>
+</section>
+
+<div class="layout">
+
+<aside class="robot-side" id="features">
+ <div class="robot">🤖</div>
+
+ <article class="feature">
+  <div class="feature-icon">⚡</div>
+  <h3>مساعدة ذكية</h3>
+  <p>ساعد نفسك على فهم الأسئلة</p>
+ </article>
+
+ <article class="feature">
+  <div class="feature-icon">🧠</div>
+  <h3>شرح مبسط</h3>
+  <p>تعلم خطوة بخطوة</p>
+ </article>
+
+ <article class="feature">
+  <div class="feature-icon">🚀</div>
+  <h3>مواد متعددة</h3>
+  <p>JavaScript وPython والثقافة المالية</p>
+ </article>
+</aside>
+
+<div class="content">
+
+<section class="panel">
+ <h2 class="panel-title">🚀 ابدأ التعلم</h2>
+
+ <div class="form-grid">
+  <div>
+   <label for="subject">📚 اختر المادة</label>
+   <select id="subject">
     <option value="JavaScript">JavaScript</option>
     <option value="Python">Python</option>
     <option value="الثقافة المالية">الثقافة المالية</option>
-  </select>
-
-  <label>اكتب السؤال</label>
-  <textarea id="question" placeholder="اكتب السؤال هنا..."></textarea>
-
-  <button onclick="searchQuestion()">🔍 ابحث عن الإجابة</button>
-
-  <div id="result" class="result">
-    الإجابة ستظهر هنا.
+   </select>
   </div>
 
-  <button class="secondary" onclick="openQureo()">
-    🌐 فتح منصة Qureo
-  </button>
+  <div>
+   <label for="type">❓ نوع السؤال</label>
+   <select id="type">
+    <option value="اختيار من متعدد">اختيار من متعدد</option>
+    <option value="كتابة كود">كتابة كود</option>
+    <option value="سؤال آخر">سؤال آخر</option>
+   </select>
+  </div>
+ </div>
+
+ <label class="question-label" for="question">✍️ اكتب السؤال هنا</label>
+ <textarea id="question" placeholder="أدخل السؤال أو الصق نصه هنا..."></textarea>
+
+ <div class="buttons">
+  <button class="solve" onclick="solve()">✨ حل السؤال وشرحه</button>
+  <button class="clear" onclick="clearAll()">🗑️ مسح الكل</button>
+ </div>
 </section>
 
-<section class="card">
-  <h2>➕ إضافة سؤال جديد</h2>
-
-  <label>المادة</label>
-  <select id="saveSubject">
-    <option value="JavaScript">JavaScript</option>
-    <option value="Python">Python</option>
-    <option value="الثقافة المالية">الثقافة المالية</option>
-  </select>
-
-  <label>السؤال</label>
-  <textarea id="saveQuestion" placeholder="اكتب السؤال..."></textarea>
-
-  <label>الإجابة أو الشرح</label>
-  <textarea id="saveAnswer" placeholder="اكتب الإجابة أو الكود..."></textarea>
-
-  <button onclick="saveQuestion()">💾 حفظ السؤال</button>
+<section class="panel" id="about">
+ <h2 class="panel-title">💡 الإجابة والشرح</h2>
+ <div class="answer-box" id="result">
+  <div class="answer-heading">مرحبًا بك في QUREO AI</div>
+  اكتب سؤالك لبدء التعلم. ستظهر هنا الإجابة والشرح بعد ربط خدمة الحل.
+ </div>
 </section>
 
-<section class="card">
-  <h2>📚 مكتبة الأسئلة</h2>
-
-  <input id="filter" placeholder="ابحث عن سؤال..." oninput="showSaved()">
-
-  <div id="savedList"></div>
-</section>
-
-<footer>
-  QUREO AI 3D
-  <br><br>
-  Designed by Engineer Karim Hamada Abu Malek
-</footer>
-
+</div>
+</div>
 </main>
 
+<footer>
+ 💜 QUREO AI · <span>معًا نحو مستقبل أذكى</span>
+</footer>
+
 <script>
-const KEY="qureo_ai_3d_questions";
-
-function getData(){
-  try{
-    return JSON.parse(localStorage.getItem(KEY)) || [];
-  }catch(e){
-    return [];
-  }
+// نجوم الخلفية
+const stars=document.getElementById("stars");
+for(let i=0;i<110;i++){
+ const s=document.createElement("span");
+ s.className="star";
+ s.style.top=Math.random()*100+"%";
+ s.style.left=Math.random()*100+"%";
+ s.style.animationDelay=Math.random()*4+"s";
+ s.style.animationDuration=(2+Math.random()*4)+"s";
+ stars.appendChild(s);
 }
 
-function normalize(value){
-  return value.trim().toLowerCase().replace(/\s+/g," ");
+// استقبال السؤال
+function solve(){
+ const question=document.getElementById("question").value.trim();
+ const subject=document.getElementById("subject").value;
+ const type=document.getElementById("type").value;
+ const result=document.getElementById("result");
+
+ if(!question){
+  result.textContent="⚠️ من فضلك اكتب السؤال أولاً.";
+  return;
+ }
+
+ result.textContent=
+ "✅ تم استقبال السؤال بنجاح!\n\n"+
+ "📚 المادة: "+subject+"\n"+
+ "❓ نوع السؤال: "+type+
+ "\n\n📝 السؤال:\n"+question+
+ "\n\n⏳ الواجهة جاهزة. الخطوة التالية هي ربط قاعدة الأسئلة وخدمة الذكاء الاصطناعي لإنتاج الإجابة والشرح.";
 }
 
-function saveQuestion(){
-  const subject=document.getElementById("saveSubject").value;
-  const question=document.getElementById("saveQuestion").value.trim();
-  const answer=document.getElementById("saveAnswer").value.trim();
-
-  if(!question || !answer){
-    alert("اكتب السؤال والإجابة أولاً");
-    return;
-  }
-
-  const data=getData();
-
-  data.push({
-    id:Date.now(),
-    subject:subject,
-    question:question,
-    answer:answer
-  });
-
-  localStorage.setItem(KEY,JSON.stringify(data));
-
-  document.getElementById("saveQuestion").value="";
-  document.getElementById("saveAnswer").value="";
-
-  showSaved();
-  alert("تم حفظ السؤال بنجاح");
+// مسح البيانات
+function clearAll(){
+ document.getElementById("question").value="";
+ document.getElementById("result").textContent=
+ "اكتب سؤالك لبدء التعلم.";
 }
-
-function searchQuestion(){
-  const subject=document.getElementById("subject").value;
-  const question=document.getElementById("question").value.trim();
-  const result=document.getElementById("result");
-
-  if(!question){
-    result.textContent="اكتب السؤال أولاً.";
-    return;
-  }
-
-  const found=getData().find(item=>
-    item.subject===subject &&
-    normalize(item.question)===normalize(question)
-  );
-
-  if(found){
-    result.textContent="الإجابة المحفوظة:\n\n"+found.answer;
-  }else{
-    result.textContent=
-      "لم نجد إجابة محفوظة لهذا السؤال.\n\n"+
-      "يمكنك إضافته إلى مكتبة الأسئلة.";
-  }
-}
-
-function showSaved(){
-  const list=document.getElementById("savedList");
-  const filter=normalize(document.getElementById("filter").value);
-
-  list.innerHTML="";
-
-  const filtered=getData().filter(item=>
-    normalize(item.question).includes(filter) ||
-    normalize(item.subject).includes(filter)
-  );
-
-  if(filtered.length===0){
-    list.textContent="لا توجد أسئلة محفوظة.";
-    return;
-  }
-
-  filtered.forEach(item=>{
-    const box=document.createElement("div");
-    box.className="item";
-
-    const title=document.createElement("strong");
-    title.textContent=item.subject;
-
-    const question=document.createElement("p");
-    question.textContent="السؤال: "+item.question;
-
-    const answer=document.createElement("p");
-    answer.textContent="الإجابة: "+item.answer;
-
-    const remove=document.createElement("button");
-    remove.className="danger";
-    remove.textContent="حذف السؤال";
-    remove.onclick=()=>deleteQuestion(item.id);
-
-    box.append(title,question,answer,remove);
-    list.appendChild(box);
-  });
-}
-
-function deleteQuestion(id){
-  if(!confirm("هل تريد حذف السؤال؟"))return;
-
-  const data=getData().filter(item=>item.id!==id);
-  localStorage.setItem(KEY,JSON.stringify(data));
-  showSaved();
-}
-
-function openQureo(){
-  window.open(
-    "https://me-portal.qureo.education/login",
-    "_blank"
-  );
-}
-
-showSaved();
 </script>
 
 </body>
