@@ -1,263 +1,815 @@
 
-/* ===== QUREO AI RESPONSIVE DESIGN ===== */
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUREO AI</title>
 
-html {
-  width: 100%;
-  min-width: 0;
-  overflow-x: clip;
-  -webkit-text-size-adjust: 100%;
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cyan: #35d9ff;
+    --blue: #397cff;
+    --purple: #9b5cff;
+    --panel: rgba(9, 20, 48, .82);
 }
 
 body {
-  width: 100%;
-  min-width: 0;
-  overflow-x: clip;
+    min-height: 100vh;
+    font-family: Arial, Tahoma, sans-serif;
+    color: #fff;
+    background: #050b1d;
+    overflow-x: hidden;
 }
 
-img, canvas, video {
-  max-width: 100%;
+/* Animated background */
+.space {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 15% 30%, #102d70 0%, transparent 40%),
+        radial-gradient(ellipse at 85% 65%, #35115e 0%, transparent 38%),
+        linear-gradient(135deg, #030817, #08152f 55%, #100923);
 }
 
-.container,
-.intro-strip,
-.foot,
-.panel,
-.feature,
-.field {
-  min-width: 0;
+.nebula {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .22;
+    animation: nebulaMove 16s ease-in-out infinite alternate;
 }
 
-textarea,
-select {
-  max-width: 100%;
-  min-width: 0;
+.nebula.one {
+    background: #087dff;
+    top: -300px;
+    left: -200px;
 }
 
-.answer,
-.answer pre,
-.feature p {
-  overflow-wrap: anywhere;
-  word-break: break-word;
+.nebula.two {
+    background: #8c20ff;
+    bottom: -350px;
+    right: -180px;
+    animation-delay: -7s;
 }
 
-.answer pre {
-  max-width: 100%;
-  overflow-x: auto;
+@keyframes nebulaMove {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(100px,80px) scale(1.25); }
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 90px 80px, white, transparent),
+        radial-gradient(2px 2px at 160px 150px, white, transparent),
+        radial-gradient(1px 1px at 240px 50px, white, transparent),
+        radial-gradient(2px 2px at 300px 200px, white, transparent);
+    background-size: 350px 250px;
+    opacity: .5;
+    animation: starsMove 35s linear infinite;
+}
+
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(250px); }
+}
+
+.planet {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #3b9dff, #102c75 55%, #050b24);
+    box-shadow: 0 0 90px #1675ff55;
+    left: -140px;
+    top: 28%;
+    opacity: .45;
+    animation: planetFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes planetFloat {
+    from { transform: translateY(-20px) rotate(0deg); }
+    to { transform: translateY(35px) rotate(15deg); }
+}
+
+.glow {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent, #050b1d55);
+}
+
+/* Main container */
+.container {
+    width: min(100% - 32px, 1050px);
+    margin: auto;
+    padding: 24px 0 35px;
+}
+
+/* Developer badge */
+.top-bar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 28px;
 }
 
 .developer {
-  max-width: calc(100% - 24px);
-}
-
-.developer-copy {
-  min-width: 0;
-}
-
-/* الشاشات الكبيرة */
-@media (min-width: 1201px) {
-  header {
-    padding-top: 82px;
-  }
-
-  .intro-strip {
-    width: min(1000px, 92%);
-  }
-
-  .container {
-    width: min(900px, 88%);
-  }
-}
-
-/* التابلت */
-@media (max-width: 900px) {
-  .intro-strip {
-    grid-template-columns: 40px minmax(0, 1fr);
-  }
-
-  .intro-strip .features {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .container {
-    width: 92%;
-  }
-}
-
-/* الموبايل */
-@media (max-width: 600px) {
-  header {
-    padding: 82px 12px 18px;
-  }
-
-  .logo {
-    font-size: clamp(34px, 10vw, 48px);
-    letter-spacing: 1.5px;
-  }
-
-  .subtitle {
-    font-size: 12px;
-  }
-
-  .intro-strip {
-    width: calc(100% - 22px);
-    grid-template-columns: 30px minmax(0, 1fr);
-    gap: 8px;
-    padding: 11px;
-  }
-
-  .intro-strip .robot {
-    font-size: 25px;
-  }
-
-  .intro-strip .intro-title {
-    font-size: 13px;
-  }
-
-  .intro-strip .features {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 7px;
-  }
-
-  .intro-strip .feature {
-    padding: 8px;
-  }
-
-  .intro-strip .feature strong {
-    font-size: 9px;
-  }
-
-  .intro-strip .feature p {
-    font-size: 8px;
-    line-height: 1.6;
-  }
-
-  .container {
-    width: calc(100% - 22px);
-    margin: 0 auto 22px;
-  }
-
-  .panel {
-    padding: 17px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 15px;
+    border: 1px solid #42cfff55;
     border-radius: 18px;
-  }
+    background: #10213caa;
+    box-shadow: 0 0 22px #168dff22;
+}
 
-  .form-heading {
-    flex-wrap: wrap;
-    gap: 7px;
-  }
+.avatar {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    background: linear-gradient(135deg, #13d8ff, #8c50ff);
+    box-shadow: 0 0 15px #22caff66;
+}
 
-  .fields {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 9px;
-  }
-
-  .field select {
-    font-size: 12px;
-    padding: 11px 8px;
-  }
-
-  textarea {
-    min-height: 125px;
-    padding: 12px;
-  }
-
-  .quick-label {
-    width: 100%;
-  }
-
-  .modebar {
+.developer small {
     display: block;
-  }
-
-  .mode-label {
-    display: block;
-    margin-bottom: 7px;
-  }
-
-  .modes {
-    width: 100%;
-  }
-
-  .mode {
-    min-width: 0;
+    color: #c3d4ed;
     font-size: 10px;
-  }
+    margin-bottom: 4px;
+}
 
-  .buttons {
-    gap: 8px;
-  }
+.developer strong {
+    color: var(--cyan);
+    font-size: 13px;
+}
 
-  .buttons button {
-    min-width: 0;
-    padding: 11px 8px;
-    font-size: 12px;
-  }
-
-  .answer {
-    font-size: 12px;
-    padding: 12px;
-  }
-
-  .foot {
-    width: calc(100% - 24px);
+/* Hero */
+.hero {
     text-align: center;
-  }
+    margin-bottom: 28px;
 }
 
-/* الموبايلات الصغيرة */
-@media (max-width: 360px) {
-  .developer {
-    right: 8px;
-    top: 8px;
-    gap: 6px;
-  }
+.logo {
+    font-size: clamp(42px, 8vw, 68px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #28e0ff, #6689ff, #bd65ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 20px #2d9dff55);
+}
 
-  .avatar-button {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
-  }
+.subtitle {
+    color: #c3d5f5;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-top: 5px;
+}
 
-  .fields {
-    grid-template-columns: 1fr;
-  }
+/* Panels */
+.panel {
+    background: var(--panel);
+    border: 1px solid #35cfff55;
+    border-radius: 25px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 0 35px #087dff12, inset 0 0 25px #1d4c8a0c;
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
 
-  .intro-strip .features {
-    grid-template-columns: 1fr;
-  }
+.panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 10%;
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #28dfff, #9660ff, transparent);
+}
 
-  .panel {
-    padding: 14px;
-  }
+/* Welcome */
+.panel-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #fff;
+}
 
-  .buttons {
-    flex-direction: column;
-  }
+.panel-title span {
+    color: var(--cyan);
+}
 
-  .buttons button {
+.features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.feature {
+    padding: 15px 12px;
+    min-width: 0;
+    border: 1px solid #3c8fff35;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #12294a99, #11152f99);
+    transition: .3s;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    border-color: #38d9ff99;
+    box-shadow: 0 0 18px #168dff22;
+}
+
+.feature h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+    color: #eaf8ff;
+}
+
+.feature p {
+    font-size: 12px;
+    color: #b9c9e4;
+    line-height: 1.7;
+}
+
+/* Form heading */
+.form-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.form-heading h2 {
+    font-size: 19px;
+}
+
+.ready {
+    color: #6dffb0;
+    background: #0c583a55;
+    border: 1px solid #36e89a55;
+    border-radius: 30px;
+    padding: 7px 13px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* Inputs */
+.field {
+    margin-bottom: 17px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: #d7e7ff;
+    margin-bottom: 9px;
+}
+
+select, textarea {
     width: 100%;
-  }
+    color: white;
+    background: #08152d;
+    border: 1px solid #3566a0;
+    border-radius: 13px;
+    padding: 14px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    transition: .2s;
 }
 
-/* الشاشات الأفقية */
-@media (max-height: 520px) and (orientation: landscape) {
-  header {
-    padding-top: 72px;
-    padding-bottom: 12px;
-  }
+select:focus, textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 12px #1b9dff30;
+}
 
-  .intro-strip {
+select option {
+    background: #08152d;
+    color: white;
+}
+
+textarea {
+    min-height: 145px;
+    resize: vertical;
+    line-height: 1.8;
+}
+
+textarea::placeholder {
+    color: #8194b4;
+}
+
+.question-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+.question-top label {
+    margin: 0;
+}
+
+.counter {
+    color: #8da6c8;
+    font-size: 11px;
+    direction: ltr;
+}
+
+/* Upload */
+.upload {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    margin-top: 12px;
+    border: 1px dashed #438acb;
+    border-radius: 13px;
+    color: #c6ddff;
+    font-size: 12px;
+    cursor: pointer;
+    background: #10244366;
+}
+
+.upload input {
+    display: none;
+}
+
+.upload small {
+    display: block;
+    margin-top: 6px;
+    color: #8ba4c6;
+}
+
+#imagePreview {
+    max-width: 100%;
+    max-height: 180px;
+    display: none;
+    margin: 12px auto 0;
+    border-radius: 12px;
+}
+
+/* Quick examples */
+.quick-title {
+    color: #bdcde5;
+    font-size: 12px;
+    margin: 18px 0 10px;
+}
+
+.quick-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-buttons button {
+    border: 1px solid #3e6ca5;
+    background: #14294a;
+    color: #d5e8ff;
+    border-radius: 30px;
+    padding: 8px 13px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.quick-buttons button:hover {
+    border-color: var(--cyan);
+}
+
+/* Help modes */
+.mode-title {
+    font-size: 13px;
+    color: #d8e7ff;
+    margin: 20px 0 10px;
+}
+
+.modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.mode {
+    padding: 12px 5px;
+    text-align: center;
+    background: #0b1932;
+    border: 1px solid #345781;
+    border-radius: 12px;
+    color: #c9d9ef;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.mode.active {
+    color: #62e4ff;
+    border-color: #30d9ff;
+    background: #12335a;
+    box-shadow: 0 0 12px #21bfff22;
+}
+
+/* Main buttons */
+.actions {
+    display: grid;
+    gap: 11px;
+    margin-top: 22px;
+}
+
+.solve-btn, .clear-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 13px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.solve-btn {
+    color: #041426;
+    border: none;
+    background: linear-gradient(90deg, #29dcf7, #468cff, #a45bff);
+    box-shadow: 0 5px 25px #258dff35;
+}
+
+.solve-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.clear-btn {
+    color: #d6e5ff;
+    border: 1px solid #47618a;
+    background: #101c35;
+}
+
+/* Answer */
+.answer {
+    margin-top: 22px;
+    padding: 18px;
+    min-height: 115px;
+    background: #071329;
+    border: 1px solid #35cfff55;
+    border-radius: 15px;
+}
+
+.answer h3 {
+    font-size: 15px;
+    color: var(--cyan);
     margin-bottom: 12px;
-  }
 }
 
-/* تقليل الحركة للأجهزة التي تطلب ذلك */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+.answer p {
+    color: #bdcce4;
+    font-size: 13px;
+    line-height: 1.9;
+    white-space: pre-wrap;
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    color: #849bbd;
+    font-size: 11px;
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+    .features {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .container {
+        padding-top: 30px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .container {
+        width: calc(100% - 22px);
+        padding-top: 16px;
+    }
+
+    .panel {
+        padding: 17px 13px;
+        border-radius: 20px;
+    }
+
+    .top-bar {
+        margin-bottom: 22px;
+    }
+
+    .logo {
+        font-size: 43px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .panel-title {
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+
+    .feature {
+        padding: 12px 9px;
+    }
+
+    .feature h3 {
+        font-size: 13px;
+    }
+
+    .feature p {
+        font-size: 10px;
+        line-height: 1.6;
+    }
+
+    .form-heading h2 {
+        font-size: 16px;
+    }
+
+    select, textarea {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .ready {
+        font-size: 10px;
+        padding: 6px 9px;
+    }
+
+    .modes {
+        gap: 6px;
+    }
+
+    .mode {
+        font-size: 10px;
+        padding: 11px 3px;
+    }
+
+    .solve-btn, .clear-btn {
+        font-size: 13px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="space">
+    <div class="nebula one"></div>
+    <div class="nebula two"></div>
+    <div class="stars"></div>
+    <div class="planet"></div>
+</div>
+<div class="glow"></div>
+
+<div class="container">
+
+    <div class="top-bar">
+        <div class="developer">
+            <div class="avatar">KH</div>
+            <div>
+                <small>Designed &amp; Developed by</small>
+                <strong>Kareem Hamada</strong>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero">
+        <div class="logo">QUREO AI</div>
+        <div class="subtitle">Solve • Learn • Grow</div>
+    </header>
+
+    <!-- Welcome panel -->
+    <section class="panel">
+
+        <h2 class="panel-title">
+            🤖 مرحباً بك في <span>QUREO AI</span>
+        </h2>
+
+        <div class="features">
+
+            <div class="feature">
+                <h3>✨ مساعدة ذكية</h3>
+                <p>افهم السؤال والتدريب بطريقة سهلة.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📚 شرح مبسط</h3>
+                <p>خطوات سهلة وواضحة تساعدك على التعلم.</p>
+            </div>
+
+            <div class="feature">
+                <h3>💻 مواد متعددة</h3>
+                <p>Python و JavaScript والثقافة المالية.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🎯 تعلم بطريقتك</h3>
+                <p>تلميح أو شرح أو إجابة مع التوضيح.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Question panel -->
+    <section class="panel">
+
+        <div class="form-heading">
+            <h2>🚀 حلل سؤالك</h2>
+            <span class="ready">● جاهز للمساعدة</span>
+        </div>
+
+        <div class="field">
+            <label for="subject">📚 اختر المادة</label>
+            <select id="subject">
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="الثقافة المالية">الثقافة المالية</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="questionType">📝 نوع السؤال</label>
+            <select id="questionType">
+                <option value="اختيار من متعدد">اختيار من متعدد</option>
+                <option value="سؤال برمجي">سؤال برمجي</option>
+                <option value="اكتشاف خطأ">اكتشاف خطأ</option>
+                <option value="سؤال آخر">سؤال آخر</option>
+            </select>
+        </div>
+
+        <div class="field">
+
+            <div class="question-top">
+                <label for="question">✍️ اكتب سؤالك هنا</label>
+                <span class="counter" id="counter">0 / 2000</span>
+            </div>
+
+            <textarea
+                id="question"
+                maxlength="2000"
+                placeholder="انسخ السؤال والصقه هنا..."
+            ></textarea>
+
+            <label class="upload">
+                📷 اضغط لرفع صورة السؤال
+                <small>PNG / JPG / WEBP — حتى 20MB</small>
+                <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp">
+            </label>
+
+            <img id="imagePreview" alt="معاينة الصورة">
+
+        </div>
+
+        <div class="quick-title">⚡ أمثلة سريعة</div>
+
+        <div class="quick-buttons">
+            <button type="button" onclick="setExample('اشرح لي هذا الكود خطوة بخطوة')">اشرح كود</button>
+            <button type="button" onclick="setExample('اكتشف الخطأ في هذا الكود واشرح طريقة إصلاحه')">اكتشف خطأ</button>
+            <button type="button" onclick="setExample('اختبرني في أساسيات البرمجة')">اختبرني</button>
+        </div>
+
+        <div class="mode-title">🎯 اختر طريقة المساعدة</div>
+
+        <div class="modes">
+            <button type="button" class="mode active" data-mode="تلميح أولاً">💡 تلميح أولاً</button>
+            <button type="button" class="mode" data-mode="شرح الحل">📖 شرح الحل</button>
+            <button type="button" class="mode" data-mode="الإجابة">✅ الإجابة</button>
+        </div>
+
+        <div class="actions">
+            <button type="button" class="solve-btn" onclick="solveQuestion()">
+                ✨ حل السؤال
+            </button>
+
+            <button type="button" class="clear-btn" onclick="clearAll()">
+                مسح
+            </button>
+        </div>
+
+        <div class="answer">
+            <h3>🤖 إجابة QUREO AI</h3>
+            <p id="answerText">اكتب سؤالك هنا لتبدأ!</p>
+        </div>
+
+    </section>
+
+    <footer>
+        QUREO AI © 2026 — جميع الحقوق محفوظة
+    </footer>
+
+</div>
+
+<script>
+const question = document.getElementById("question");
+const counter = document.getElementById("counter");
+const answerText = document.getElementById("answerText");
+const imageInput = document.getElementById("imageInput");
+const imagePreview = document.getElementById("imagePreview");
+
+let selectedMode = "تلميح أولاً";
+
+question.addEventListener("input", function () {
+    counter.textContent = question.value.length + " / 2000";
+});
+
+function setExample(text) {
+    question.value = text;
+    counter.textContent = question.value.length + " / 2000";
+    question.focus();
+}
+
+document.querySelectorAll(".mode").forEach(button => {
+    button.addEventListener("click", function () {
+        document.querySelectorAll(".mode").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        this.classList.add("active");
+        selectedMode = this.dataset.mode;
+    });
+});
+
+imageInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const allowed = ["image/png", "image/jpeg", "image/webp"];
+
+    if (!allowed.includes(file.type)) {
+        alert("من فضلك اختر صورة PNG أو JPG أو WEBP");
+        this.value = "";
+        return;
+    }
+
+    if (file.size > 20 * 1024 * 1024) {
+        alert("حجم الصورة يجب ألا يتجاوز 20MB");
+        this.value = "";
+        return;
+    }
+
+    imagePreview.src = URL.createObjectURL(file);
+    imagePreview.style.display = "block";
+});
+
+function solveQuestion() {
+    const text = question.value.trim();
+
+    if (!text) {
+        answerText.textContent = "من فضلك اكتب السؤال أولاً حتى أستطيع مساعدتك.";
+        question.focus();
+        return;
+    }
+
+    answerText.textContent =
+        "تم استقبال سؤالك بنجاح! \n\n" +
+        "المادة: " + document.getElementById("subject").value + "\n" +
+        "نوع السؤال: " + document.getElementById("questionType").value + "\n" +
+        "طريقة المساعدة: " + selectedMode + "\n\n" +
+        "واجهة الموقع جاهزة، لكن خدمة الذكاء الاصطناعي تحتاج إلى ربط خلفي آمن حتى تقدم إجابات فعلية.";
+
+}
+
+function clearAll() {
+    question.value = "";
+    counter.textContent = "0 / 2000";
+    answerText.textContent = "اكتب سؤالك هنا لتبدأ!";
+    imageInput.value = "";
+    imagePreview.src = "";
+    imagePreview.style.display = "none";
+}
+</script>
+
+</body>
+  </html>
+  
