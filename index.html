@@ -23,7 +23,7 @@
 body {
     min-height: 100vh;
     font-family: Arial, Tahoma, sans-serif;
-    color: #fff;
+    color: white;
     background: #050b1d;
     overflow-x: hidden;
 }
@@ -35,8 +35,8 @@ body {
     z-index: -3;
     overflow: hidden;
     background:
-        radial-gradient(ellipse at 15% 30%, #102d70 0%, transparent 40%),
-        radial-gradient(ellipse at 85% 65%, #35115e 0%, transparent 38%),
+        radial-gradient(ellipse at 15% 30%, #102d70, transparent 40%),
+        radial-gradient(ellipse at 85% 65%, #35115e, transparent 38%),
         linear-gradient(135deg, #030817, #08152f 55%, #100923);
 }
 
@@ -113,14 +113,14 @@ body {
     background: linear-gradient(180deg, transparent, #050b1d55);
 }
 
-/* Main container */
+/* Main */
 .container {
     width: min(100% - 32px, 1050px);
     margin: auto;
     padding: 24px 0 35px;
 }
 
-/* Developer badge */
+/* Developer profile */
 .top-bar {
     display: flex;
     justify-content: flex-start;
@@ -130,36 +130,43 @@ body {
 .developer {
     display: flex;
     align-items: center;
-    gap: 11px;
-    padding: 9px 15px;
-    border: 1px solid #42cfff55;
-    border-radius: 18px;
-    background: #10213caa;
-    box-shadow: 0 0 22px #168dff22;
+    gap: 14px;
+    padding: 12px 18px;
+    border: 1px solid #42cfff77;
+    border-radius: 20px;
+    background: #10213cdd;
+    box-shadow: 0 0 25px #168dff33;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    overflow: hidden;
     border-radius: 50%;
-    font-weight: bold;
-    font-size: 14px;
+    border: 3px solid var(--cyan);
+    box-shadow: 0 0 18px #35d9ff99;
     background: linear-gradient(135deg, #13d8ff, #8c50ff);
-    box-shadow: 0 0 15px #22caff66;
 }
 
-.developer small {
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.developer-info small {
     display: block;
     color: #c3d4ed;
-    font-size: 10px;
-    margin-bottom: 4px;
+    font-size: 12px;
+    margin-bottom: 6px;
 }
 
-.developer strong {
+.developer-info strong {
+    display: block;
     color: var(--cyan);
-    font-size: 13px;
+    font-size: 18px;
 }
 
 /* Hero */
@@ -209,17 +216,16 @@ body {
     background: linear-gradient(90deg, transparent, #28dfff, #9660ff, transparent);
 }
 
-/* Welcome */
 .panel-title {
     font-size: 20px;
     margin-bottom: 20px;
-    color: #fff;
 }
 
 .panel-title span {
     color: var(--cyan);
 }
 
+/* Feature cards */
 .features {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -253,7 +259,7 @@ body {
     line-height: 1.7;
 }
 
-/* Form heading */
+/* Form */
 .form-heading {
     display: flex;
     justify-content: space-between;
@@ -276,7 +282,6 @@ body {
     white-space: nowrap;
 }
 
-/* Inputs */
 .field {
     margin-bottom: 17px;
 }
@@ -338,7 +343,7 @@ textarea::placeholder {
     direction: ltr;
 }
 
-/* Upload */
+/* Image upload */
 .upload {
     display: block;
     text-align: center;
@@ -370,7 +375,7 @@ textarea::placeholder {
     border-radius: 12px;
 }
 
-/* Quick examples */
+/* Examples */
 .quick-title {
     color: #bdcde5;
     font-size: 12px;
@@ -429,7 +434,7 @@ textarea::placeholder {
     box-shadow: 0 0 12px #21bfff22;
 }
 
-/* Main buttons */
+/* Buttons */
 .actions {
     display: grid;
     gap: 11px;
@@ -501,10 +506,6 @@ footer {
     .features {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-
-    .container {
-        padding-top: 30px;
-    }
 }
 
 /* Mobile */
@@ -521,6 +522,24 @@ footer {
 
     .top-bar {
         margin-bottom: 22px;
+    }
+
+    .avatar {
+        width: 62px;
+        height: 62px;
+    }
+
+    .developer {
+        padding: 10px 13px;
+        gap: 11px;
+    }
+
+    .developer-info strong {
+        font-size: 15px;
+    }
+
+    .developer-info small {
+        font-size: 10px;
     }
 
     .logo {
@@ -576,7 +595,6 @@ footer {
         font-size: 13px;
     }
 }
-
 </style>
 </head>
 
@@ -588,26 +606,36 @@ footer {
     <div class="stars"></div>
     <div class="planet"></div>
 </div>
+
 <div class="glow"></div>
 
 <div class="container">
 
+    <!-- Developer profile -->
     <div class="top-bar">
         <div class="developer">
-            <div class="avatar">KH</div>
-            <div>
-                <small>Designed &amp; Developed by</small>
-                <strong>Kareem Hamada</strong>
+
+            <div class="avatar">
+                <img src="kareem.jpg"
+                     alt="Eng. Kareem Hamada"
+                     onerror="this.style.display='none'">
             </div>
+
+            <div class="developer-info">
+                <small>Designed &amp; Developed by</small>
+                <strong>Eng. Kareem Hamada</strong>
+            </div>
+
         </div>
     </div>
 
+    <!-- Hero -->
     <header class="hero">
         <div class="logo">QUREO AI</div>
         <div class="subtitle">Solve • Learn • Grow</div>
     </header>
 
-    <!-- Welcome panel -->
+    <!-- Welcome -->
     <section class="panel">
 
         <h2 class="panel-title">
@@ -683,7 +711,8 @@ footer {
             <label class="upload">
                 📷 اضغط لرفع صورة السؤال
                 <small>PNG / JPG / WEBP — حتى 20MB</small>
-                <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp">
+                <input type="file" id="imageInput"
+                       accept="image/png,image/jpeg,image/webp">
             </label>
 
             <img id="imagePreview" alt="معاينة الصورة">
@@ -792,12 +821,11 @@ function solveQuestion() {
     }
 
     answerText.textContent =
-        "تم استقبال سؤالك بنجاح! \n\n" +
+        "تم استقبال سؤالك بنجاح!\n\n" +
         "المادة: " + document.getElementById("subject").value + "\n" +
         "نوع السؤال: " + document.getElementById("questionType").value + "\n" +
         "طريقة المساعدة: " + selectedMode + "\n\n" +
         "واجهة الموقع جاهزة، لكن خدمة الذكاء الاصطناعي تحتاج إلى ربط خلفي آمن حتى تقدم إجابات فعلية.";
-
 }
 
 function clearAll() {
@@ -811,5 +839,5 @@ function clearAll() {
 </script>
 
 </body>
-  </html>
-  
+    </html>
+    
