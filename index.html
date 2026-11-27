@@ -1,9 +1,12 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QUREO AI</title>
+
+<script src="https://js.puter.com/v2/"></script>
 
 <style>
 * {
@@ -640,7 +643,7 @@ footer {
 
             <div class="feature">
                 <h3>💻 مواد متعددة</h3>
-                <p>Python و JavaScript والثقافة المالية.</p>
+                <p>Python و JavaScript ولغات برمجة أخرى.</p>
             </div>
 
             <div class="feature">
@@ -662,7 +665,6 @@ footer {
             <select id="subject">
                 <option value="JavaScript">JavaScript</option>
                 <option value="Python">Python</option>
-                <option value="الثقافة المالية">الثقافة المالية</option>
                 <option value="أخرى">أخرى</option>
             </select>
         </div>
@@ -738,15 +740,13 @@ footer {
 
 </div>
 
-<!-- تحميل مكتبة Puter -->
-<script src="https://js.puter.com/v2/"></script>
-
 <script>
 const question = document.getElementById("question");
 const counter = document.getElementById("counter");
 const answerText = document.getElementById("answerText");
 const imageInput = document.getElementById("imageInput");
 const imagePreview = document.getElementById("imagePreview");
+const solveButton = document.querySelector(".solve-btn");
 
 let selectedMode = "تلميح أولاً";
 
@@ -771,94 +771,172 @@ document.querySelectorAll(".mode").forEach(button => {
     });
 });
 
+// معاينة الصورة المختارة
 imageInput.addEventListener("change", function () {
     const file = this.files[0];
 
-    if (!file) return;
+    if (!file) {
+        imagePreview.style.display = "none";
+        return;
+    }
 
     const allowed = ["image/png", "image/jpeg", "image/webp"];
 
     if (!allowed.includes(file.type)) {
         alert("من فضلك اختر صورة PNG أو JPG أو WEBP");
         this.value = "";
+        imagePreview.style.display = "none";
         return;
     }
 
     if (file.size > 20 * 1024 * 1024) {
         alert("حجم الصورة يجب ألا يتجاوز 20MB");
         this.value = "";
+        imagePreview.style.display = "none";
         return;
     }
 
-    imagePreview.src = URL.createObjectURL(file);
-    imagePreview.style.display = "block";
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        imagePreview.src = event.target.result;
+        imagePreview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
 });
+
+// تحويل الصورة إلى Data URL لإرسالها مع السؤال
+function readImageAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(
+            new Error("تعذر قراءة الصورة. حاول اختيارها مرة أخرى.")
+        );
+
+        reader.readAsDataURL(file);
+    });
+}
+
+// استخراج نص إجابة Puter
+function getResponseText(response) {
+    if (typeof response === "string") {
+        return response;
+    }
+
+    if (response?.message?.content) {
+        const content = response.message.content;
+
+        if (typeof content === "string") {
+            return content;
+        }
+
+        if (Array.isArray(content)) {
+            return content.map(item => item.text || "").join("\n");
+        }
+    }
+
+    if (response?.text) {
+        return response.text;
+    }
+
+    return "";
+}
 
 async function solveQuestion() {
     const text = question.value.trim();
+    const subject = document.getElementById("subject").value;
+    const questionType = document.getElementById("questionType").value;
+    const imageFile = imageInput.files[0];
 
-    if (!text) {
-        answerText.textContent = "من فضلك اكتب السؤال أولاً حتى أستطيع مساعدتك.";
+    if (!text && !imageFile) {
+        answerText.textContent = "من فضلك اكتب السؤال أو ارفع صورة للسؤال أولاً.";
         question.focus();
         return;
     }
 
-    const solveButton = document.querySelector(".solve-btn");
+    if (!window.puter || !puter.ai) {
+        answerText.textContent =
+            "لم يتم تحميل خدمة الذكاء الاصطناعي. تأكد من الإنترنت ثم حدّث الصفحة.";
+        return;
+    }
 
     solveButton.disabled = true;
     solveButton.textContent = "⏳ جاري التفكير...";
-    answerText.textContent = "جاري تحليل السؤال وتجهيز الإجابة...";
+    answerText.textContent = "جاري قراءة السؤال وتحليله...";
 
-    const subject = document.getElementById("subject").value;
-    const questionType = document.getElementById("questionType").value;
+    let languageInstruction = "";
+
+    if (subject === "Python") {
+        languageInstruction = `
+لغة البرمجة المطلوبة هي Python.
+اكتب الحل باستخدام Python فقط.
+لا تستخدم JavaScript أو أي لغة أخرى.
+حتى لو ظهر في السؤال Print أو صيغة غير صحيحة، صححها إلى صيغة Python الصحيحة.
+`;
+    } else if (subject === "JavaScript") {
+        languageInstruction = `
+لغة البرمجة المطلوبة هي JavaScript.
+اكتب الحل باستخدام JavaScript فقط.
+لا تستخدم Python أو أي لغة أخرى.
+`;
+    } else {
+        languageInstruction = `
+حدد اللغة المناسبة بناءً على السؤال، ووضح اسم اللغة التي استخدمتها.
+`;
+    }
 
     const prompt = `
 أنت مساعد تعليمي ذكي اسمه QUREO AI.
 
-المادة: ${subject}
+المادة المختارة: ${subject}
 نوع السؤال: ${questionType}
-طريقة المساعدة المطلوبة: ${selectedMode}
+طريقة المساعدة: ${selectedMode}
 
-السؤال:
-${text}
+${languageInstruction}
 
 التعليمات:
-- أجب باللغة العربية البسيطة.
-- افهم السؤال جيداً قبل الإجابة.
-- إذا كان السؤال برمجياً، اكتب الكود الصحيح.
-- اشرح الحل خطوة بخطوة بطريقة سهلة.
-- إذا وجدت خطأ في الكود، وضح الخطأ وطريقة إصلاحه.
-- لا تخترع معلومات إذا لم تكن متأكداً.
-- اجعل الإجابة منظمة وواضحة.
-- في وضع التلميح، قدم تلميحاً يساعد الطالب على التفكير دون كشف الحل مباشرة.
-- في وضع شرح الحل، قدم الحل مع شرحه.
-- في وضع الإجابة، قدم الإجابة مع توضيح مختصر.
+1. اقرأ السؤال المكتوب والصورة المرفقة إن وجدت.
+2. استخرج نص السؤال من الصورة وحاول فهمه بالكامل.
+3. إذا كانت الصورة تحتوي على اختيارات، اقرأ الاختيارات كلها.
+4. حدد الإجابة الصحيحة بناءً على السؤال.
+5. إذا كان السؤال برمجياً، اكتب الكود الصحيح باللغة المختارة فقط.
+6. اشرح الإجابة باللغة العربية البسيطة.
+7. وضح الناتج المتوقع عند الحاجة.
+8. لا تخترع نصاً غير موجود في الصورة.
+9. إذا كانت الصورة غير واضحة، اطلب صورة أوضح.
+10. لا تغيّر لغة البرمجة التي اختارها المستخدم.
+
+في وضع التلميح: أعطِ تلميحاً يساعد الطالب على التفكير.
+في وضع شرح الحل: اكتب الحل واشرحه خطوة بخطوة.
+في وضع الإجابة: اكتب الإجابة مع شرح مختصر.
+
+السؤال المكتوب:
+${text || "اقرأ السؤال من الصورة المرفقة."}
 `;
 
     try {
-        if (!window.puter || !puter.ai) {
-            throw new Error("لم يتم تحميل مكتبة Puter. أعد تحميل الصفحة.");
+        let response;
+
+        if (imageFile) {
+            answerText.textContent = "جاري تجهيز الصورة وإرسالها للذكاء الاصطناعي...";
+
+            const imageData = await readImageAsDataURL(imageFile);
+
+            // إرسال السؤال والصورة إلى Puter AI
+            response = await puter.ai.chat(prompt, imageData);
+
+        } else {
+            // إرسال السؤال النصي فقط
+            response = await puter.ai.chat(prompt);
         }
 
-        const response = await puter.ai.chat(prompt);
+        const result = getResponseText(response);
 
-        let result = "";
-
-        if (typeof response === "string") {
-            result = response;
-        } else if (response && response.message &&
-                   response.message.content) {
-            const content = response.message.content;
-
-            if (Array.isArray(content)) {
-                result = content.map(item => item.text || "").join("\n");
-            } else {
-                result = content;
-            }
-        } else if (response && response.text) {
-            result = response.text;
-        } else {
-            result = "وصل رد غير متوقع من الخدمة.";
+        if (!result) {
+            throw new Error("وصل رد فارغ أو غير مفهوم من خدمة الذكاء الاصطناعي.");
         }
 
         answerText.textContent = result;
@@ -868,8 +946,8 @@ ${text}
 
         answerText.textContent =
             "تعذر الحصول على الإجابة.\n\n" +
-            "تأكد من اتصال الإنترنت، وحاول تسجيل الدخول إلى Puter إذا طُلب منك ذلك.\n\n" +
-            "تفاصيل الخطأ: " + error.message;
+            "السبب: " + (error.message || "خطأ غير معروف") +
+            "\n\nتأكد من تسجيل الدخول إلى Puter في نفس المتصفح، ثم حاول مرة أخرى.";
 
     } finally {
         solveButton.disabled = false;
@@ -889,3 +967,4 @@ function clearAll() {
 
 </body>
 </html>
+```
