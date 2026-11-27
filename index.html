@@ -29,6 +29,8 @@ body {
     overflow-x: hidden;
 }
 
+/* الخلفية المتحركة */
+
 .space {
     position: fixed;
     inset: 0;
@@ -113,6 +115,8 @@ body {
     background: linear-gradient(180deg, transparent, #050b1d55);
 }
 
+/* الهيكل العام */
+
 .container {
     width: min(100% - 32px, 1050px);
     margin: auto;
@@ -190,6 +194,8 @@ body {
     margin-top: 5px;
 }
 
+/* الصناديق */
+
 .panel {
     background: var(--panel);
     border: 1px solid #35cfff55;
@@ -220,6 +226,8 @@ body {
 .panel-title span {
     color: var(--cyan);
 }
+
+/* المميزات */
 
 .features {
     display: grid;
@@ -253,6 +261,8 @@ body {
     color: #b9c9e4;
     line-height: 1.7;
 }
+
+/* النموذج */
 
 .form-heading {
     display: flex;
@@ -337,6 +347,8 @@ textarea::placeholder {
     direction: ltr;
 }
 
+/* رفع الصور */
+
 .upload {
     display: block;
     text-align: center;
@@ -368,6 +380,8 @@ textarea::placeholder {
     border-radius: 12px;
 }
 
+/* الأزرار السريعة */
+
 .quick-title {
     color: #bdcde5;
     font-size: 12px;
@@ -393,6 +407,8 @@ textarea::placeholder {
 .quick-buttons button:hover {
     border-color: var(--cyan);
 }
+
+/* أنماط المساعدة */
 
 .mode-title {
     font-size: 13px;
@@ -424,6 +440,8 @@ textarea::placeholder {
     background: #12335a;
     box-shadow: 0 0 12px #21bfff22;
 }
+
+/* الأزرار */
 
 .actions {
     display: grid;
@@ -466,28 +484,90 @@ textarea::placeholder {
     background: #101c35;
 }
 
+/* تنسيق إجابات الذكاء الاصطناعي */
+
 .answer {
     margin-top: 22px;
-    padding: 18px;
+    padding: 20px;
     min-height: 115px;
-    background: #071329;
-    border: 1px solid #35cfff55;
-    border-radius: 15px;
+    background: linear-gradient(145deg, #071329, #0d1b38);
+    border: 1px solid #35cfff66;
+    border-radius: 16px;
+    box-shadow: 0 0 20px #087dff15;
 }
 
-.answer h3 {
-    font-size: 15px;
+.answer > h3 {
+    font-size: 16px;
     color: var(--cyan);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #35cfff33;
 }
 
-.answer p {
-    color: #bdcce4;
-    font-size: 13px;
-    line-height: 1.9;
-    white-space: pre-wrap;
+.answer-content {
+    direction: rtl;
+    text-align: right;
+    color: #d8e7ff;
+    font-size: 14px;
+    line-height: 2;
     overflow-wrap: anywhere;
 }
+
+.answer-content h3 {
+    color: #35d9ff;
+    font-size: 16px;
+    margin: 18px 0 9px;
+}
+
+.answer-content p {
+    color: #d8e7ff;
+    margin: 9px 0;
+    line-height: 2;
+}
+
+.answer-content strong {
+    color: #55e5ff;
+}
+
+.answer-content pre {
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    overflow-x: auto;
+    background: #030b1b;
+    border: 1px solid #2875a8;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 14px 0;
+    color: #8ff5ff;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.answer-content code {
+    font-family: Consolas, monospace;
+}
+
+.answer-content :not(pre) > code {
+    direction: ltr;
+    display: inline-block;
+    background: #142b49;
+    color: #70eaff;
+    padding: 2px 7px;
+    border-radius: 5px;
+}
+
+.answer-content ul,
+.answer-content ol {
+    padding-right: 25px;
+    margin: 10px 0;
+}
+
+.answer-content li {
+    margin: 6px 0;
+}
+
+/* التذييل */
 
 footer {
     text-align: center;
@@ -496,11 +576,15 @@ footer {
     font-size: 11px;
 }
 
+/* الشاشات الكبيرة */
+
 @media (min-width: 900px) {
     .features {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
+/* الهواتف */
 
 @media (max-width: 520px) {
     .container {
@@ -587,6 +671,15 @@ footer {
     .solve-btn, .clear-btn {
         font-size: 13px;
     }
+
+    .answer-content {
+        font-size: 13px;
+    }
+
+    .answer-content pre {
+        font-size: 12px;
+        padding: 11px;
+    }
 }
 </style>
 </head>
@@ -630,6 +723,7 @@ footer {
         </h2>
 
         <div class="features">
+
             <div class="feature">
                 <h3>✨ مساعدة ذكية</h3>
                 <p>افهم السؤال والتدريب بطريقة سهلة.</p>
@@ -649,6 +743,7 @@ footer {
                 <h3>🎯 تعلم بطريقتك</h3>
                 <p>تلميح أو شرح أو إجابة مع التوضيح.</p>
             </div>
+
         </div>
     </section>
 
@@ -661,6 +756,7 @@ footer {
 
         <div class="field">
             <label for="subject">📚 اختر المادة</label>
+
             <select id="subject">
                 <option value="JavaScript">JavaScript</option>
                 <option value="Python">Python</option>
@@ -670,6 +766,7 @@ footer {
 
         <div class="field">
             <label for="questionType">📝 نوع السؤال</label>
+
             <select id="questionType">
                 <option value="اختيار من متعدد">اختيار من متعدد</option>
                 <option value="سؤال برمجي">سؤال برمجي</option>
@@ -679,6 +776,7 @@ footer {
         </div>
 
         <div class="field">
+
             <div class="question-top">
                 <label for="question">✍️ اكتب سؤالك هنا</label>
                 <span class="counter" id="counter">0 / 2000</span>
@@ -693,27 +791,48 @@ footer {
             <label class="upload">
                 📷 اضغط لرفع صورة السؤال
                 <small>PNG / JPG / WEBP — حتى 20MB</small>
-                <input type="file" id="imageInput"
-                       accept="image/png,image/jpeg,image/webp">
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/png,image/jpeg,image/webp"
+                >
             </label>
 
             <img id="imagePreview" alt="معاينة الصورة">
+
         </div>
 
         <div class="quick-title">⚡ أمثلة سريعة</div>
 
         <div class="quick-buttons">
-            <button type="button" onclick="setExample('اشرح لي هذا الكود خطوة بخطوة')">اشرح كود</button>
-            <button type="button" onclick="setExample('اكتشف الخطأ في هذا الكود واشرح طريقة إصلاحه')">اكتشف خطأ</button>
-            <button type="button" onclick="setExample('اختبرني في أساسيات البرمجة')">اختبرني</button>
+            <button type="button" onclick="setExample('اشرح لي هذا الكود خطوة بخطوة')">
+                اشرح كود
+            </button>
+
+            <button type="button" onclick="setExample('اكتشف الخطأ في هذا الكود واشرح طريقة إصلاحه')">
+                اكتشف خطأ
+            </button>
+
+            <button type="button" onclick="setExample('اختبرني في أساسيات البرمجة')">
+                اختبرني
+            </button>
         </div>
 
         <div class="mode-title">🎯 اختر طريقة المساعدة</div>
 
         <div class="modes">
-            <button type="button" class="mode active" data-mode="تلميح أولاً">💡 تلميح أولاً</button>
-            <button type="button" class="mode" data-mode="شرح الحل">📖 شرح الحل</button>
-            <button type="button" class="mode" data-mode="الإجابة">✅ الإجابة</button>
+            <button type="button" class="mode active" data-mode="تلميح أولاً">
+                💡 تلميح أولاً
+            </button>
+
+            <button type="button" class="mode" data-mode="شرح الحل">
+                📖 شرح الحل
+            </button>
+
+            <button type="button" class="mode" data-mode="الإجابة">
+                ✅ الإجابة
+            </button>
         </div>
 
         <div class="actions">
@@ -728,7 +847,10 @@ footer {
 
         <div class="answer">
             <h3>🤖 إجابة QUREO AI</h3>
-            <p id="answerText">اكتب سؤالك هنا لتبدأ!</p>
+
+            <div id="answerText" class="answer-content">
+                اكتب سؤالك هنا لتبدأ!
+            </div>
         </div>
 
     </section>
@@ -740,6 +862,7 @@ footer {
 </div>
 
 <script>
+
 const question = document.getElementById("question");
 const counter = document.getElementById("counter");
 const answerText = document.getElementById("answerText");
@@ -749,9 +872,13 @@ const solveButton = document.querySelector(".solve-btn");
 
 let selectedMode = "تلميح أولاً";
 
+// عداد الأحرف
+
 question.addEventListener("input", function () {
     counter.textContent = question.value.length + " / 2000";
 });
+
+// الأمثلة السريعة
 
 function setExample(text) {
     question.value = text;
@@ -759,8 +886,11 @@ function setExample(text) {
     question.focus();
 }
 
+// اختيار نمط المساعدة
+
 document.querySelectorAll(".mode").forEach(button => {
     button.addEventListener("click", function () {
+
         document.querySelectorAll(".mode").forEach(item => {
             item.classList.remove("active");
         });
@@ -770,7 +900,10 @@ document.querySelectorAll(".mode").forEach(button => {
     });
 });
 
+// معاينة الصورة
+
 imageInput.addEventListener("change", function () {
+
     const file = this.files[0];
 
     if (!file) {
@@ -804,11 +937,15 @@ imageInput.addEventListener("change", function () {
     reader.readAsDataURL(file);
 });
 
+// قراءة الصورة
+
 function readImageAsDataURL(file) {
     return new Promise((resolve, reject) => {
+
         const reader = new FileReader();
 
         reader.onload = () => resolve(reader.result);
+
         reader.onerror = () => reject(
             new Error("تعذر قراءة الصورة")
         );
@@ -817,7 +954,10 @@ function readImageAsDataURL(file) {
     });
 }
 
+// استخراج نص إجابة الذكاء الاصطناعي
+
 function getResponseText(response) {
+
     if (typeof response === "string") {
         return response;
     }
@@ -839,51 +979,249 @@ function getResponseText(response) {
     return "";
 }
 
+// حماية النص من HTML غير الآمن
+
+function escapeHTML(text) {
+
+    return text.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+
+}
+
+// تنسيق النصوص داخل الإجابة
+
+function inlineFormat(text) {
+
+    return escapeHTML(text)
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>");
+
+}
+
+// تنسيق إجابات الذكاء الاصطناعي
+
+function formatAIAnswer(text) {
+
+    const lines = text.split("\n");
+
+    let html = "";
+    let paragraph = [];
+    let listType = null;
+    let inCode = false;
+    let codeLines = [];
+
+    function closeParagraph() {
+
+        if (paragraph.length) {
+
+            const formatted = paragraph
+                .map(line => inlineFormat(line))
+                .join("<br>");
+
+            html += `<p>${formatted}</p>`;
+
+            paragraph = [];
+        }
+    }
+
+    function closeList() {
+
+        if (listType) {
+
+            html += listType === "ul" ? "</ul>" : "</ol>";
+
+            listType = null;
+        }
+    }
+
+    for (const line of lines) {
+
+        const trimmed = line.trim();
+
+        // التعامل مع الأكواد
+
+        if (trimmed.startsWith("```")) {
+
+            closeParagraph();
+            closeList();
+
+            if (!inCode) {
+
+                inCode = true;
+                codeLines = [];
+
+            } else {
+
+                html += `<pre><code>${escapeHTML(codeLines.join("\n"))}</code></pre>`;
+
+                inCode = false;
+            }
+
+            continue;
+        }
+
+        if (inCode) {
+            codeLines.push(line);
+            continue;
+        }
+
+        // العناوين
+
+        if (/^#{1,3}\s/.test(trimmed)) {
+
+            closeParagraph();
+            closeList();
+
+            const heading = trimmed.replace(/^#{1,3}\s*/, "");
+
+            html += `<h3>${inlineFormat(heading)}</h3>`;
+
+            continue;
+        }
+
+        // الأسطر الفارغة
+
+        if (!trimmed) {
+
+            closeParagraph();
+            closeList();
+
+            continue;
+        }
+
+        // القوائم النقطية
+
+        if (/^[-*•]\s/.test(trimmed)) {
+
+            closeParagraph();
+
+            if (listType !== "ul") {
+
+                closeList();
+
+                html += "<ul>";
+
+                listType = "ul";
+            }
+
+            html += `<li>${inlineFormat(trimmed.replace(/^[-*•]\s*/, ""))}</li>`;
+
+            continue;
+        }
+
+        // القوائم الرقمية
+
+        if (/^\d+[.)]\s/.test(trimmed)) {
+
+            closeParagraph();
+
+            if (listType !== "ol") {
+
+                closeList();
+
+                html += "<ol>";
+
+                listType = "ol";
+            }
+
+            html += `<li>${inlineFormat(trimmed.replace(/^\d+[.)]\s*/, ""))}</li>`;
+
+            continue;
+        }
+
+        closeList();
+
+        paragraph.push(trimmed);
+    }
+
+    // إغلاق العناصر المفتوحة
+
+    if (inCode) {
+
+        html += `<pre><code>${escapeHTML(codeLines.join("\n"))}</code></pre>`;
+
+    }
+
+    closeParagraph();
+    closeList();
+
+    return html;
+}
+
+// طلب حل السؤال
+
 async function solveQuestion() {
+
     const text = question.value.trim();
+
     const subject = document.getElementById("subject").value;
+
     const questionType = document.getElementById("questionType").value;
+
     const imageFile = imageInput.files[0];
 
     if (!text && !imageFile) {
+
         answerText.textContent = "اكتب السؤال أو ارفع صورة أولاً.";
+
         return;
     }
 
     if (!window.puter || !puter.ai) {
+
         answerText.textContent =
             "خدمة الذكاء الاصطناعي لم يتم تحميلها. حدّث الصفحة وحاول مرة أخرى.";
+
         return;
     }
 
     solveButton.disabled = true;
+
     solveButton.textContent = "⏳ جاري التفكير...";
+
     answerText.textContent = "جاري تحليل السؤال...";
 
     let languageInstruction = "";
 
     if (subject === "Python") {
+
         languageInstruction =
             "استخدم Python فقط في الحل، ولا تستخدم JavaScript.";
+
     } else if (subject === "JavaScript") {
+
         languageInstruction =
             "استخدم JavaScript فقط في الحل، ولا تستخدم Python.";
+
     } else {
+
         languageInstruction =
             "حدد لغة البرمجة المناسبة للسؤال.";
+
     }
 
     let modeInstruction = "";
 
     if (selectedMode === "تلميح أولاً") {
+
         modeInstruction =
             "أعطِ تلميحاً فقط يساعد الطالب على التفكير. لا تعرض الحل النهائي ولا الكود الكامل.";
+
     } else if (selectedMode === "شرح الحل") {
+
         modeInstruction =
             "اعرض الحل الصحيح واشرحه خطوة بخطوة باللغة العربية البسيطة.";
+
     } else {
+
         modeInstruction =
             "اعرض الإجابة النهائية الصحيحة مع توضيح مختصر.";
+
     }
 
     const prompt = `
@@ -896,38 +1234,55 @@ ${languageInstruction}
 
 ${modeInstruction}
 
-اقرأ السؤال جيداً.
-إذا كان السؤال برمجياً، اكتب كوداً صحيحاً باللغة المختارة.
-اشرح باللغة العربية البسيطة.
-لا تخترع معلومات غير موجودة في السؤال.
-إذا لم تفهم السؤال، اطلب توضيحاً.
+تعليمات تنسيق الإجابة:
+
+1. اكتب عنواناً واضحاً لكل جزء باستخدام Markdown.
+2. استخدم **الخط العريض** للكلمات المهمة.
+3. ضع الأكواد داخل علامات ``` الخاصة بالكود.
+4. اجعل الشرح باللغة العربية البسيطة.
+5. لا تكرر الإجابة أكثر من مرة.
+6. اجعل الإجابة مرتبة ومختصرة ومفهومة.
+7. إذا كان السؤال برمجياً، اكتب كوداً صحيحاً باللغة المختارة.
+8. إذا كان هناك ناتج للكود، وضحه.
+9. لا تخترع معلومات غير موجودة في السؤال.
+10. إذا لم تفهم السؤال، اطلب توضيحاً.
 
 السؤال:
 ${text || "اقرأ السؤال من الصورة المرفقة."}
 `;
 
     try {
+
         let response;
 
         if (imageFile) {
+
             answerText.textContent = "جاري تجهيز الصورة...";
 
             const imageData = await readImageAsDataURL(imageFile);
 
             response = await puter.ai.chat(prompt, imageData);
+
         } else {
+
             response = await puter.ai.chat(prompt);
+
         }
 
         const result = getResponseText(response);
 
         if (!result) {
+
             throw new Error("وصل رد فارغ من خدمة الذكاء الاصطناعي.");
+
         }
 
-        answerText.textContent = result;
+        // عرض الإجابة بالتنسيق الجديد
+
+        answerText.innerHTML = formatAIAnswer(result);
 
     } catch (error) {
+
         console.error("QUREO AI Error:", error);
 
         answerText.textContent =
@@ -937,19 +1292,31 @@ ${text || "اقرأ السؤال من الصورة المرفقة."}
             "\n\nتأكد من تسجيل الدخول إلى Puter وحاول مرة أخرى.";
 
     } finally {
+
         solveButton.disabled = false;
+
         solveButton.textContent = "✨ حل السؤال";
+
     }
 }
 
+// مسح السؤال والإجابة
+
 function clearAll() {
+
     question.value = "";
+
     counter.textContent = "0 / 2000";
+
     answerText.textContent = "اكتب سؤالك هنا لتبدأ!";
+
     imageInput.value = "";
+
     imagePreview.src = "";
+
     imagePreview.style.display = "none";
 }
+
 </script>
 
 </body>
