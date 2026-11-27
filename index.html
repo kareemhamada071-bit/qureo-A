@@ -1,12 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QUREO AI</title>
-
-<script src="https://js.puter.com/v2/"></script>
 
 <style>
 * {
@@ -15,261 +12,578 @@
     padding: 0;
 }
 
+:root {
+    --cyan: #35d9ff;
+    --blue: #397cff;
+    --purple: #9b5cff;
+    --panel: rgba(9, 20, 48, .82);
+}
+
 body {
-    font-family: Tahoma, Arial, sans-serif;
-    color: white;
     min-height: 100vh;
-    background: linear-gradient(135deg, #05051c, #101044, #180d38);
+    font-family: Arial, Tahoma, sans-serif;
+    color: white;
+    background: #050b1d;
     overflow-x: hidden;
 }
 
-.stars {
+.space {
     position: fixed;
     inset: 0;
-    pointer-events: none;
-    z-index: -1;
+    z-index: -3;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 15% 30%, #102d70, transparent 40%),
+        radial-gradient(ellipse at 85% 65%, #35115e, transparent 38%),
+        linear-gradient(135deg, #030817, #08152f 55%, #100923);
+}
+
+.nebula {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .22;
+    animation: nebulaMove 16s ease-in-out infinite alternate;
+}
+
+.nebula.one {
+    background: #087dff;
+    top: -300px;
+    left: -200px;
+}
+
+.nebula.two {
+    background: #8c20ff;
+    bottom: -350px;
+    right: -180px;
+    animation-delay: -7s;
+}
+
+@keyframes nebulaMove {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(100px,80px) scale(1.25); }
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
     background-image:
-      radial-gradient(2px 2px at 20px 30px, white, transparent),
-      radial-gradient(2px 2px at 100px 150px, #9c8cff, transparent),
-      radial-gradient(2px 2px at 200px 80px, white, transparent),
-      radial-gradient(2px 2px at 300px 200px, #8b9dff, transparent),
-      radial-gradient(2px 2px at 400px 50px, white, transparent);
-    background-size: 450px 300px;
-    animation: starsMove 20s linear infinite;
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 90px 80px, white, transparent),
+        radial-gradient(2px 2px at 160px 150px, white, transparent),
+        radial-gradient(1px 1px at 240px 50px, white, transparent),
+        radial-gradient(2px 2px at 300px 200px, white, transparent);
+    background-size: 350px 250px;
+    opacity: .5;
+    animation: starsMove 35s linear infinite;
 }
 
 @keyframes starsMove {
     from { transform: translateY(0); }
-    to { transform: translateY(300px); }
+    to { transform: translateY(250px); }
+}
+
+.planet {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #3b9dff, #102c75 55%, #050b24);
+    box-shadow: 0 0 90px #1675ff55;
+    left: -140px;
+    top: 28%;
+    opacity: .45;
+    animation: planetFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes planetFloat {
+    from { transform: translateY(-20px) rotate(0deg); }
+    to { transform: translateY(35px) rotate(15deg); }
+}
+
+.glow {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent, #050b1d55);
 }
 
 .container {
-    width: 92%;
-    max-width: 850px;
-    margin: 35px auto;
+    width: min(100% - 32px, 1050px);
+    margin: auto;
+    padding: 24px 0 35px;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 25px;
+.top-bar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 28px;
 }
 
-.header p {
-    color: #c9c4ff;
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.header h1 {
-    font-size: 42px;
-    color: #a99cff;
-    text-shadow: 0 0 20px #705cff;
-}
-
-.header .subtitle {
-    color: #d4d0ff;
-    margin-top: 10px;
-    font-size: 15px;
-}
-
-.card {
-    background: rgba(17, 17, 55, 0.88);
-    border: 1px solid rgba(157, 140, 255, 0.35);
+.developer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border: 1px solid #42cfff77;
     border-radius: 20px;
-    padding: 23px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 25px rgba(99, 75, 255, 0.13);
+    background: #10213cdd;
+    box-shadow: 0 0 25px #168dff33;
 }
 
-.profile {
-    text-align: center;
-}
-
-.profile img {
-    width: 95px;
-    height: 95px;
+.avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    overflow: hidden;
     border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #9887ff;
-    box-shadow: 0 0 20px #6655ff;
-    margin-bottom: 12px;
+    border: 3px solid var(--cyan);
+    box-shadow: 0 0 18px #35d9ff99;
+    background: linear-gradient(135deg, #13d8ff, #8c50ff);
 }
 
-.profile h3 {
-    color: #c5bbff;
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.developer-info small {
+    display: block;
+    color: #c3d4ed;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.developer-info strong {
+    display: block;
+    color: var(--cyan);
+    font-size: 18px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.logo {
+    font-size: clamp(42px, 8vw, 68px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #28e0ff, #6689ff, #bd65ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 20px #2d9dff55);
+}
+
+.subtitle {
+    color: #c3d5f5;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-top: 5px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid #35cfff55;
+    border-radius: 25px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 0 35px #087dff12, inset 0 0 25px #1d4c8a0c;
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 10%;
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #28dfff, #9660ff, transparent);
+}
+
+.panel-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.panel-title span {
+    color: var(--cyan);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.feature {
+    padding: 15px 12px;
+    min-width: 0;
+    border: 1px solid #3c8fff35;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #12294a99, #11152f99);
+    transition: .3s;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    border-color: #38d9ff99;
+    box-shadow: 0 0 18px #168dff22;
+}
+
+.feature h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+    color: #eaf8ff;
+}
+
+.feature p {
+    font-size: 12px;
+    color: #b9c9e4;
+    line-height: 1.7;
+}
+
+.form-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.form-heading h2 {
     font-size: 19px;
 }
 
-h2 {
-    font-size: 20px;
-    color: #b9adff;
-    margin-bottom: 18px;
+.ready {
+    color: #6dffb0;
+    background: #0c583a55;
+    border: 1px solid #36e89a55;
+    border-radius: 30px;
+    padding: 7px 13px;
+    font-size: 11px;
+    white-space: nowrap;
 }
 
-label {
+.field {
+    margin-bottom: 17px;
+}
+
+.field label {
     display: block;
-    margin: 15px 0 8px;
-    color: #dcd8ff;
-    font-weight: bold;
+    font-size: 13px;
+    color: #d7e7ff;
+    margin-bottom: 9px;
 }
 
 select, textarea {
     width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #514a91;
-    outline: none;
-    background: #0b0b2c;
     color: white;
-    font-size: 15px;
+    background: #08152d;
+    border: 1px solid #3566a0;
+    border-radius: 13px;
+    padding: 14px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    transition: .2s;
 }
 
 select:focus, textarea:focus {
-    border-color: #a18dff;
-    box-shadow: 0 0 10px #5545c9;
+    border-color: var(--cyan);
+    box-shadow: 0 0 12px #1b9dff30;
+}
+
+select option {
+    background: #08152d;
+    color: white;
 }
 
 textarea {
-    min-height: 160px;
+    min-height: 145px;
     resize: vertical;
     line-height: 1.8;
 }
 
+textarea::placeholder {
+    color: #8194b4;
+}
+
+.question-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+.question-top label {
+    margin: 0;
+}
+
 .counter {
-    text-align: left;
-    color: #aaa5d5;
-    font-size: 12px;
-    margin-top: 7px;
+    color: #8da6c8;
+    font-size: 11px;
+    direction: ltr;
 }
 
-.upload-box {
-    border: 2px dashed #7165bd;
-    padding: 18px;
+.upload {
+    display: block;
     text-align: center;
-    border-radius: 14px;
+    padding: 15px;
     margin-top: 12px;
-    background: rgba(100, 80, 200, 0.08);
+    border: 1px dashed #438acb;
+    border-radius: 13px;
+    color: #c6ddff;
+    font-size: 12px;
+    cursor: pointer;
+    background: #10244366;
 }
 
-.upload-box input {
-    max-width: 100%;
-    margin-top: 12px;
-    color: white;
+.upload input {
+    display: none;
+}
+
+.upload small {
+    display: block;
+    margin-top: 6px;
+    color: #8ba4c6;
 }
 
 #imagePreview {
-    display: none;
     max-width: 100%;
-    max-height: 250px;
-    margin: 15px auto 0;
+    max-height: 180px;
+    display: none;
+    margin: 12px auto 0;
     border-radius: 12px;
-    border: 1px solid #897cff;
 }
 
-.buttons {
+.quick-title {
+    color: #bdcde5;
+    font-size: 12px;
+    margin: 18px 0 10px;
+}
+
+.quick-buttons {
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
-    margin-top: 18px;
+    gap: 8px;
 }
 
-button {
-    border: none;
+.quick-buttons button {
+    border: 1px solid #3e6ca5;
+    background: #14294a;
+    color: #d5e8ff;
+    border-radius: 30px;
+    padding: 8px 13px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.quick-buttons button:hover {
+    border-color: var(--cyan);
+}
+
+.mode-title {
+    font-size: 13px;
+    color: #d8e7ff;
+    margin: 20px 0 10px;
+}
+
+.modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.mode {
+    padding: 12px 5px;
+    text-align: center;
+    background: #0b1932;
+    border: 1px solid #345781;
     border-radius: 12px;
-    padding: 13px 20px;
+    color: #c9d9ef;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.mode.active {
+    color: #62e4ff;
+    border-color: #30d9ff;
+    background: #12335a;
+    box-shadow: 0 0 12px #21bfff22;
+}
+
+.actions {
+    display: grid;
+    gap: 11px;
+    margin-top: 22px;
+}
+
+.solve-btn, .clear-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 13px;
+    font-family: inherit;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.15);
+    transition: .2s;
 }
 
 .solve-btn {
-    flex: 1;
-    background: linear-gradient(90deg, #735cff, #a45cff);
-    color: white;
+    color: #041426;
+    border: none;
+    background: linear-gradient(90deg, #29dcf7, #468cff, #a45bff);
+    box-shadow: 0 5px 25px #258dff35;
+}
+
+.solve-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.solve-btn:disabled {
+    opacity: .7;
+    cursor: wait;
+    transform: none;
 }
 
 .clear-btn {
-    background: #292653;
-    color: white;
-    border: 1px solid #6559aa;
-}
-
-.example-btn {
-    background: #24204f;
-    color: #d9d2ff;
-    border: 1px solid #51478c;
-    margin: 5px 3px;
-    font-size: 13px;
-}
-
-.mode-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.mode-buttons button {
-    flex: 1;
-    background: #211d4a;
-    color: #dcd6ff;
-    border: 1px solid #6256a8;
-}
-
-.mode-buttons button.active {
-    background: #6550d9;
-    border-color: #b3a6ff;
+    color: #d6e5ff;
+    border: 1px solid #47618a;
+    background: #101c35;
 }
 
 .answer {
-    display: none;
-    white-space: pre-wrap;
-    line-height: 1.9;
-    overflow-wrap: anywhere;
-    color: #f1efff;
-    background: #090923;
+    margin-top: 22px;
     padding: 18px;
-    border-radius: 12px;
-    border: 1px solid #51478c;
-    margin-top: 15px;
+    min-height: 115px;
+    background: #071329;
+    border: 1px solid #35cfff55;
+    border-radius: 15px;
 }
 
-.loading {
-    color: #c5baff;
-    text-align: center;
-    display: none;
-    margin-top: 18px;
+.answer h3 {
+    font-size: 15px;
+    color: var(--cyan);
+    margin-bottom: 12px;
 }
 
-.footer {
-    text-align: center;
-    color: #9992c9;
+.answer p {
+    color: #bdcce4;
     font-size: 13px;
-    padding: 20px 0;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
-@media(max-width: 600px) {
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    color: #849bbd;
+    font-size: 11px;
+}
+
+@media (min-width: 900px) {
+    .features {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
     .container {
-        width: 94%;
-        margin: 20px auto;
+        width: calc(100% - 22px);
+        padding-top: 16px;
     }
 
-    .header h1 {
-        font-size: 34px;
+    .panel {
+        padding: 17px 13px;
+        border-radius: 20px;
     }
 
-    .card {
-        padding: 16px;
+    .top-bar {
+        margin-bottom: 22px;
     }
 
-    button {
+    .avatar {
+        width: 62px;
+        height: 62px;
+    }
+
+    .developer {
+        padding: 10px 13px;
+        gap: 11px;
+    }
+
+    .developer-info strong {
+        font-size: 15px;
+    }
+
+    .developer-info small {
+        font-size: 10px;
+    }
+
+    .logo {
+        font-size: 43px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .panel-title {
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+
+    .feature {
+        padding: 12px 9px;
+    }
+
+    .feature h3 {
+        font-size: 13px;
+    }
+
+    .feature p {
+        font-size: 10px;
+        line-height: 1.6;
+    }
+
+    .form-heading h2 {
+        font-size: 16px;
+    }
+
+    select, textarea {
+        font-size: 12px;
         padding: 12px;
+    }
+
+    .ready {
+        font-size: 10px;
+        padding: 6px 9px;
+    }
+
+    .modes {
+        gap: 6px;
+    }
+
+    .mode {
+        font-size: 10px;
+        padding: 11px 3px;
+    }
+
+    .solve-btn, .clear-btn {
+        font-size: 13px;
     }
 }
 </style>
@@ -277,269 +591,301 @@ button:hover {
 
 <body>
 
-<div class="stars"></div>
+<div class="space">
+    <div class="nebula one"></div>
+    <div class="nebula two"></div>
+    <div class="stars"></div>
+    <div class="planet"></div>
+</div>
+
+<div class="glow"></div>
 
 <div class="container">
 
-    <header class="header">
-        <p>صُمم بواسطة البشمهندس كريم حمادة</p>
-        <h1>QUREO AI</h1>
-        <div class="subtitle">مساعدك الذكي لحل وفهم الأسئلة البرمجية</div>
+    <div class="top-bar">
+        <div class="developer">
+            <div class="avatar">
+                <img src="kareem.jpg"
+                     alt="Eng. Kareem Hamada"
+                     onerror="this.style.display='none'">
+            </div>
+
+            <div class="developer-info">
+                <small>Designed &amp; Developed by</small>
+                <strong>Eng. Kareem Hamada</strong>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero">
+        <div class="logo">QUREO AI</div>
+        <div class="subtitle">Solve • Learn • Grow</div>
     </header>
 
-    <section class="card profile">
-        <img src="kareem.jpg" alt="صورة المصمم"
-             onerror="this.style.display='none'">
-        <h3>مرحبًا بك في QUREO AI</h3>
+    <section class="panel">
+        <h2 class="panel-title">
+            🤖 مرحباً بك في <span>QUREO AI</span>
+        </h2>
+
+        <div class="features">
+            <div class="feature">
+                <h3>✨ مساعدة ذكية</h3>
+                <p>افهم السؤال والتدريب بطريقة سهلة.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📚 شرح مبسط</h3>
+                <p>خطوات سهلة وواضحة تساعدك على التعلم.</p>
+            </div>
+
+            <div class="feature">
+                <h3>💻 مواد متعددة</h3>
+                <p>Python و JavaScript والثقافة المالية.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🎯 تعلم بطريقتك</h3>
+                <p>تلميح أو شرح أو إجابة مع التوضيح.</p>
+            </div>
+        </div>
     </section>
 
-    <section class="card">
-        <h2>🤖 حل سؤالك بالذكاء الاصطناعي</h2>
+    <section class="panel">
 
-        <label for="subject">اختر لغة البرمجة</label>
-        <select id="subject">
-            <option value="Python">Python</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="أخرى">أخرى</option>
-        </select>
-
-        <label for="questionType">نوع السؤال</label>
-        <select id="questionType">
-            <option value="حل السؤال وشرح الإجابة">حل وشرح</option>
-            <option value="اكتشاف الأخطاء وتصحيح الكود">تصحيح كود</option>
-            <option value="شرح الكود بالتفصيل">شرح كود</option>
-            <option value="كتابة كود يحقق المطلوب">كتابة كود</option>
-        </select>
-
-        <label for="question">اكتب السؤال أو الكود هنا</label>
-        <textarea id="question"
-          maxlength="5000"
-          placeholder="اكتب سؤالك البرمجي هنا..."></textarea>
-
-        <div class="counter">
-            <span id="count">0</span> / 5000
+        <div class="form-heading">
+            <h2>🚀 حلل سؤالك</h2>
+            <span class="ready">● جاهز للمساعدة</span>
         </div>
 
-        <div class="upload-box">
-            <p>📷 يمكنك اختيار صورة للسؤال لمعاينتها</p>
-            <input type="file" id="imageInput" accept="image/*">
+        <div class="field">
+            <label for="subject">📚 اختر المادة</label>
+            <select id="subject">
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="الثقافة المالية">الثقافة المالية</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="questionType">📝 نوع السؤال</label>
+            <select id="questionType">
+                <option value="اختيار من متعدد">اختيار من متعدد</option>
+                <option value="سؤال برمجي">سؤال برمجي</option>
+                <option value="اكتشاف خطأ">اكتشاف خطأ</option>
+                <option value="سؤال آخر">سؤال آخر</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <div class="question-top">
+                <label for="question">✍️ اكتب سؤالك هنا</label>
+                <span class="counter" id="counter">0 / 2000</span>
+            </div>
+
+            <textarea
+                id="question"
+                maxlength="2000"
+                placeholder="انسخ السؤال والصقه هنا..."
+            ></textarea>
+
+            <label class="upload">
+                📷 اضغط لرفع صورة السؤال
+                <small>PNG / JPG / WEBP — حتى 20MB</small>
+                <input type="file" id="imageInput"
+                       accept="image/png,image/jpeg,image/webp">
+            </label>
+
             <img id="imagePreview" alt="معاينة الصورة">
         </div>
 
-        <label>طريقة الشرح</label>
-        <div class="mode-buttons">
-            <button class="active" onclick="setMode('simple', this)">
-                شرح مبسط
-            </button>
-            <button onclick="setMode('detailed', this)">
-                شرح مفصل
-            </button>
+        <div class="quick-title">⚡ أمثلة سريعة</div>
+
+        <div class="quick-buttons">
+            <button type="button" onclick="setExample('اشرح لي هذا الكود خطوة بخطوة')">اشرح كود</button>
+            <button type="button" onclick="setExample('اكتشف الخطأ في هذا الكود واشرح طريقة إصلاحه')">اكتشف خطأ</button>
+            <button type="button" onclick="setExample('اختبرني في أساسيات البرمجة')">اختبرني</button>
         </div>
 
-        <div class="buttons">
-            <button class="solve-btn" id="solveButton"
-                    onclick="solveQuestion()">
+        <div class="mode-title">🎯 اختر طريقة المساعدة</div>
+
+        <div class="modes">
+            <button type="button" class="mode active" data-mode="تلميح أولاً">💡 تلميح أولاً</button>
+            <button type="button" class="mode" data-mode="شرح الحل">📖 شرح الحل</button>
+            <button type="button" class="mode" data-mode="الإجابة">✅ الإجابة</button>
+        </div>
+
+        <div class="actions">
+            <button type="button" class="solve-btn" onclick="solveQuestion()">
                 ✨ حل السؤال
             </button>
-            <button class="clear-btn" onclick="clearAll()">
+
+            <button type="button" class="clear-btn" onclick="clearAll()">
                 مسح
             </button>
         </div>
 
-        <div class="loading" id="loading">
-            جاري التفكير وحل السؤال... انتظر قليلًا
+        <div class="answer">
+            <h3>🤖 إجابة QUREO AI</h3>
+            <p id="answerText">اكتب سؤالك هنا لتبدأ!</p>
         </div>
 
-        <div class="answer" id="answer"></div>
     </section>
 
-    <section class="card">
-        <h2>⚡ أمثلة سريعة</h2>
-        <button class="example-btn"
-          onclick="setExample('اكتب برنامجًا يجمع العددين 2 و 2 ويطبع الناتج')">
-          مثال جمع
-        </button>
-        <button class="example-btn"
-          onclick="setExample('اكتب برنامجًا يطبع Hello World')">
-          Hello World
-        </button>
-        <button class="example-btn"
-          onclick="setExample('اشرح لي ما هي المتغيرات في البرمجة')">
-          شرح المتغيرات
-        </button>
-    </section>
-
-    <footer class="footer">
-        QUREO AI © 2026 - جميع الحقوق محفوظة
+    <footer>
+        QUREO AI © 2026 — جميع الحقوق محفوظة
     </footer>
 
 </div>
 
+<!-- تحميل مكتبة Puter -->
+<script src="https://js.puter.com/v2/"></script>
+
 <script>
-let selectedMode = "simple";
-
 const question = document.getElementById("question");
-const answer = document.getElementById("answer");
-const loading = document.getElementById("loading");
-const solveButton = document.getElementById("solveButton");
+const counter = document.getElementById("counter");
+const answerText = document.getElementById("answerText");
+const imageInput = document.getElementById("imageInput");
+const imagePreview = document.getElementById("imagePreview");
 
-question.addEventListener("input", function() {
-    document.getElementById("count").textContent =
-        this.value.length;
+let selectedMode = "تلميح أولاً";
+
+question.addEventListener("input", function () {
+    counter.textContent = question.value.length + " / 2000";
 });
-
-function setMode(mode, button) {
-    selectedMode = mode;
-
-    document.querySelectorAll(".mode-buttons button")
-        .forEach(btn => btn.classList.remove("active"));
-
-    button.classList.add("active");
-}
 
 function setExample(text) {
     question.value = text;
-    document.getElementById("count").textContent =
-        text.length;
+    counter.textContent = question.value.length + " / 2000";
     question.focus();
 }
 
-function clearAll() {
-    question.value = "";
-    answer.textContent = "";
-    answer.style.display = "none";
-    document.getElementById("count").textContent = "0";
-    document.getElementById("imageInput").value = "";
-    document.getElementById("imagePreview").src = "";
-    document.getElementById("imagePreview").style.display = "none";
-}
+document.querySelectorAll(".mode").forEach(button => {
+    button.addEventListener("click", function () {
+        document.querySelectorAll(".mode").forEach(item => {
+            item.classList.remove("active");
+        });
 
-document.getElementById("imageInput")
-.addEventListener("change", function() {
+        this.classList.add("active");
+        selectedMode = this.dataset.mode;
+    });
+});
+
+imageInput.addEventListener("change", function () {
     const file = this.files[0];
-    const preview = document.getElementById("imagePreview");
 
-    if (!file) {
-        preview.style.display = "none";
-        return;
-    }
+    if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-        alert("من فضلك اختر صورة صحيحة.");
+    const allowed = ["image/png", "image/jpeg", "image/webp"];
+
+    if (!allowed.includes(file.type)) {
+        alert("من فضلك اختر صورة PNG أو JPG أو WEBP");
         this.value = "";
         return;
     }
 
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        preview.src = e.target.result;
-        preview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-});
-
-function getResponseText(response) {
-    if (typeof response === "string") return response;
-
-    if (response?.message?.content) {
-        const content = response.message.content;
-
-        if (typeof content === "string") return content;
-
-        if (Array.isArray(content)) {
-            return content.map(item => item.text || "")
-                .join("\n");
-        }
+    if (file.size > 20 * 1024 * 1024) {
+        alert("حجم الصورة يجب ألا يتجاوز 20MB");
+        this.value = "";
+        return;
     }
 
-    if (response?.text) return response.text;
-
-    return JSON.stringify(response, null, 2);
-}
+    imagePreview.src = URL.createObjectURL(file);
+    imagePreview.style.display = "block";
+});
 
 async function solveQuestion() {
     const text = question.value.trim();
-    const subject = document.getElementById("subject").value;
-    const type = document.getElementById("questionType").value;
 
     if (!text) {
-        alert("من فضلك اكتب السؤال أولًا.");
+        answerText.textContent = "من فضلك اكتب السؤال أولاً حتى أستطيع مساعدتك.";
         question.focus();
         return;
     }
 
-    if (!window.puter || !puter.ai) {
-        alert("خدمة الذكاء الاصطناعي لم يتم تحميلها. تأكد من اتصال الإنترنت ثم حدّث الصفحة.");
-        return;
-    }
+    const solveButton = document.querySelector(".solve-btn");
 
-    const languageInstruction = subject === "أخرى"
-        ? "حدد لغة البرمجة المناسبة من السؤال نفسه، واذكر اللغة التي اخترتها."
-        : `مهم جدًا: لغة البرمجة المطلوبة هي ${subject}. 
-يجب أن يكون الكود والإجابة البرمجية بهذه اللغة فقط.
-لا تحول السؤال إلى لغة برمجة أخرى.
-إذا كان السؤال مكتوبًا بلغة مختلفة، اشرح التصحيح باستخدام ${subject}.`;
+    solveButton.disabled = true;
+    solveButton.textContent = "⏳ جاري التفكير...";
+    answerText.textContent = "جاري تحليل السؤال وتجهيز الإجابة...";
 
-    const explanation = selectedMode === "simple"
-        ? "استخدم شرحًا عربيًا بسيطًا مناسبًا للمبتدئين."
-        : "استخدم شرحًا عربيًا مفصلًا خطوة بخطوة.";
+    const subject = document.getElementById("subject").value;
+    const questionType = document.getElementById("questionType").value;
 
     const prompt = `
-أنت مساعد تعليمي متخصص في البرمجة.
+أنت مساعد تعليمي ذكي اسمه QUREO AI.
 
-${languageInstruction}
-
-نوع المطلوب: ${type}
-
-قواعد الإجابة:
-1. افهم السؤال جيدًا قبل الحل.
-2. اكتب الحل الصحيح بلغة البرمجة المحددة.
-3. لا تخلط بين لغات البرمجة.
-4. اشرح الحل باللغة العربية.
-5. اذكر الناتج المتوقع إن وجد.
-6. إذا كان السؤال ناقصًا أو غير واضح، وضح ذلك بدل اختراع معلومات.
-7. لا تدّعِ أنك قرأت صورة؛ اعتمد على نص السؤال المكتوب فقط.
-
-${explanation}
+المادة: ${subject}
+نوع السؤال: ${questionType}
+طريقة المساعدة المطلوبة: ${selectedMode}
 
 السؤال:
 ${text}
+
+التعليمات:
+- أجب باللغة العربية البسيطة.
+- افهم السؤال جيداً قبل الإجابة.
+- إذا كان السؤال برمجياً، اكتب الكود الصحيح.
+- اشرح الحل خطوة بخطوة بطريقة سهلة.
+- إذا وجدت خطأ في الكود، وضح الخطأ وطريقة إصلاحه.
+- لا تخترع معلومات إذا لم تكن متأكداً.
+- اجعل الإجابة منظمة وواضحة.
+- في وضع التلميح، قدم تلميحاً يساعد الطالب على التفكير دون كشف الحل مباشرة.
+- في وضع شرح الحل، قدم الحل مع شرحه.
+- في وضع الإجابة، قدم الإجابة مع توضيح مختصر.
 `;
 
-    answer.style.display = "none";
-    loading.style.display = "block";
-    solveButton.disabled = true;
-    solveButton.textContent = "جاري الحل...";
-
     try {
-        const response = await puter.ai.chat(prompt);
-        const result = getResponseText(response);
-
-        if (!result || result === "undefined") {
-            throw new Error("وصل رد فارغ من خدمة الذكاء الاصطناعي.");
+        if (!window.puter || !puter.ai) {
+            throw new Error("لم يتم تحميل مكتبة Puter. أعد تحميل الصفحة.");
         }
 
-        answer.textContent = result;
-        answer.style.display = "block";
+        const response = await puter.ai.chat(prompt);
+
+        let result = "";
+
+        if (typeof response === "string") {
+            result = response;
+        } else if (response && response.message &&
+                   response.message.content) {
+            const content = response.message.content;
+
+            if (Array.isArray(content)) {
+                result = content.map(item => item.text || "").join("\n");
+            } else {
+                result = content;
+            }
+        } else if (response && response.text) {
+            result = response.text;
+        } else {
+            result = "وصل رد غير متوقع من الخدمة.";
+        }
+
+        answerText.textContent = result;
 
     } catch (error) {
-        answer.textContent =
-            "تعذر الحصول على الإجابة.\n\n" +
-            "التفاصيل: " + (error.message || error) +
-            "\n\nتأكد من تسجيل الدخول إلى Puter في نفس المتصفح، ثم حاول مرة أخرى.";
+        console.error("QUREO AI Error:", error);
 
-        answer.style.display = "block";
+        answerText.textContent =
+            "تعذر الحصول على الإجابة.\n\n" +
+            "تأكد من اتصال الإنترنت، وحاول تسجيل الدخول إلى Puter إذا طُلب منك ذلك.\n\n" +
+            "تفاصيل الخطأ: " + error.message;
 
     } finally {
-        loading.style.display = "none";
         solveButton.disabled = false;
         solveButton.textContent = "✨ حل السؤال";
     }
+}
+
+function clearAll() {
+    question.value = "";
+    counter.textContent = "0 / 2000";
+    answerText.textContent = "اكتب سؤالك هنا لتبدأ!";
+    imageInput.value = "";
+    imagePreview.src = "";
+    imagePreview.style.display = "none";
 }
 </script>
 
 </body>
 </html>
-```
